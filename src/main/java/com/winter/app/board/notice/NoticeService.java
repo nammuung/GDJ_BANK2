@@ -2,31 +2,29 @@ package com.winter.app.board.notice;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import com.winter.app.board.BoardDAO;
 import com.winter.app.board.BoardDTO;
+import com.winter.app.board.BoardService;
 import com.winter.app.util.Pager;
 
-@Repository("na")
-public class NoticeDAO implements BoardDAO {
-	@Autowired
-	private SqlSession sqlSession;
+@Service
+public class NoticeService implements BoardService {
 	
-	private final String NAMESPACE="com.winter.app.board.notice.NoticeDAO.";
-
-	@Override
-	public Long getTotalCount(Pager pager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@Autowired
+	@Qualifier("na")
+	private BoardDAO boardDAO;
 
 	@Override
 	public List<BoardDTO> getList(Pager pager) throws Exception {
+		pager.makeRow();
 		
-		return sqlSession.selectList(NAMESPACE+"getList", pager);
+		//검색
+		
+		return boardDAO.getList(pager);
 	}
 
 	@Override
@@ -53,4 +51,6 @@ public class NoticeDAO implements BoardDAO {
 		return 0;
 	}
 	
+	
+
 }
