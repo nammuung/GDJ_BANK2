@@ -40,7 +40,7 @@
                                   <c:forEach items="${list}" var="dto">  
                                     <tr>
                                         <td>${dto.boardNum}</td>
-                                        <td>${dto.boardTitle}</td>
+                                        <td><a href="./detail?boardNum=${dto.boardNum}">${dto.boardTitle}</a></td>
                                         <td>${dto.boardWriter}</td>
                                         <td>${dto.boardDate}</td>
                                         <td>${dto.boardHit}</td>
@@ -48,6 +48,10 @@
 								   </c:forEach>	
                                 </tbody>
                             </table>
+
+                            <div>
+                                <a href="./add" class="btn btn-danger">글쓰기</a>
+                            </div>
                         </div>
                         
                     </div>

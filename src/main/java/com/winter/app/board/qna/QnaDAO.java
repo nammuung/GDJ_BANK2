@@ -33,7 +33,7 @@ public class QnaDAO implements BoardDAO {
 	@Override
 	public BoardDTO getDetail(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NAMESPACE+"getDetail", boardDTO);
 	}
 
 	@Override

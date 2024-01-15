@@ -18,6 +18,20 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
+	
+	@GetMapping("add")
+	public String setAdd()throws Exception{
+		return "board/add";
+	}
+	
+	
+	@GetMapping("detail")
+	public String getDetail(BoardDTO boardDTO, Model model)throws Exception{
+		boardDTO = qnaService.getDetail(boardDTO);
+		model.addAttribute("boardDTO", boardDTO);
+		return "board/detail";
+	}
+	
 	@GetMapping("list")
 	public String getList(Pager pager, Model model)throws Exception{
 		

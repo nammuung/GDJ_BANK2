@@ -4,6 +4,34 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <!-- mapper namespace는 비우면 에러 -->
   <mapper namespace="com.winter.app.board.qna.QnaDAO">
+   	<resultMap type="QNADTO" id="getDetailResult">
+  		<id column="BOARDNUM" property="boardNum"/>
+  		<result column="BOARDTITLE" property="boardTitle"/>
+  		<result column="BOARDContents" property="boardContents"/>
+  		<result column="BOARDWriter" property="boardWriter"/>
+  		<result column="BOARDDATE" property="boardDate"/>
+  		<result column="BOARDHIT" property="boardHit"/>
+  		<result column="BOARDREF" property="boardRef"/>
+  		<result column="BOARDSTEP" property="boardStep"/>
+  		<result column="BOARDDEPTH" property="boardDepth"/>
+  		<collection property="fileDTOs" javaType="List" ofType="BoardFileDTO">
+  			<id property="fileNum" column="FILENUM"/>
+  			<result property="fileName" column="FILENAME"/>
+  			<result property="oriName" column="ORINAME"/>
+  		</collection>
+  		
+  	</resultMap>
+  	
+  	<select id="getDetail" parameterType="BoardDTO" resultMap="getDetailResult" >
+  		SELECT *
+  		FROM QNA Q
+  			 LEFT JOIN
+  			 QNAFILES QF
+  			 USING (BOARDNUM)
+  		WHERE BOARDNUM=#{boardNum}	  
+  	</select>
+  
+  
   	<!-- list -->
   	<select id="getList" resultType="QnaDTO" parameterType="Pager">
   		SELECT * FROM
