@@ -30,7 +30,7 @@ public class QnaService implements BoardService {
 	@Override
 	public int setAdd(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return qnaDAO.setAdd(boardDTO);
 	}
 
 	@Override

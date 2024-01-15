@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.winter.app.board.BoardDTO;
@@ -22,6 +23,12 @@ public class QnaController {
 	@GetMapping("add")
 	public String setAdd()throws Exception{
 		return "board/add";
+	}
+	
+	@PostMapping("add")
+	public String setAdd(BoardDTO boardDTO)throws Exception{
+		int result = qnaService.setAdd(boardDTO);
+		return "redirect:./list";
 	}
 	
 	
