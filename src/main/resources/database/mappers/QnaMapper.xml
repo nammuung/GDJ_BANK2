@@ -4,6 +4,14 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <!-- mapper namespace는 비우면 에러 -->
   <mapper namespace="com.winter.app.board.qna.QnaDAO">
+  	<!-- file Delete -->
+  	<delete id="setFileDelete" parameterType="BoardDTO">
+  		DELETE QNAFILES WHERE BOARDNUM=#{boardNum}
+  	</delete>
+  	<!-- file List -->
+  	<select id="getFileList" parameterType="BoardDTO" resultType="BoardFileDTO">
+  		SELECT FILENAME FROM QNAFILES WHERE BOARDNUM=#{boardNum}
+  	</select>
     <!-- reply add -->
     <insert id="setReplyAdd" parameterType="QnaDTO">
     	<selectKey keyProperty="boardNum" resultType="Long" order="BEFORE">
@@ -11,10 +19,10 @@
     	</selectKey>
     	INSERT INTO QNA
   		(BOARDNUM, BOARDTITLE, BOARDWRITER, BOARDCONTENTS, BOARDDATE, BOARDHIT,
-  		 BOARDREF, BOARDSTEP, BOARDDEPTH
+  		 BOARDREF, BOARDSTEP, BOARDDEPTH, FLAG
   		)
   		VALUES
-  		(#{boardNum}, #{boardTitle}, #{boardWriter},#{boardContents}, SYSDATE, 0,#{boardRef},#{boardStep},#{boardDepth})
+  		(#{boardNum}, #{boardTitle}, #{boardWriter},#{boardContents}, SYSDATE, 0,#{boardRef},#{boardStep},#{boardDepth}, 0)
     </insert>
     
     <!-- reply step update -->
@@ -23,6 +31,14 @@
     	WHERE BOARDREF=#{boardRef} AND BOARDSTEP > #{boardStep}
     </update>
     
+     <!-- FileAdd -->
+  	<insert id="setFileAdd" parameterType="BoardFileDTO">
+  		INSERT INTO QNAFILES 
+  		(FILENUM, BOARDNUM, FILENAME, ORINAME)
+  		VALUES
+  		(BOARD_SEQ.NEXTVAL, #{boardNum}, #{fileName}, #{oriName})
+  	</insert>
+    
     <!-- add -->
   	<insert id="setAdd" parameterType="BoardDTO">
   		<selectKey keyProperty="boardNum" resultType="Long" order="BEFORE">
@@ -30,12 +46,16 @@
   		</selectKey>
   		INSERT INTO QNA
   		(BOARDNUM, BOARDTITLE, BOARDWRITER, BOARDCONTENTS, BOARDDATE, BOARDHIT,
-  		 BOARDREF, BOARDSTEP, BOARDDEPTH
+  		 BOARDREF, BOARDSTEP, BOARDDEPTH, FLAG
   		)
   		VALUES
-  		(#{boardNum}, #{boardTitle}, #{boardWriter},#{boardContents}, SYSDATE, 0,#{boardNum},0,0)
+  		(#{boardNum}, #{boardTitle}, #{boardWriter},#{boardContents}, SYSDATE, 0,#{boardNum},0,0,0)
   	</insert>
   
+  	<update id="setDelete" parameterType="QnaDTO">
+  		UPDATE QNA SET FLAG=#{flag}
+  		WHERE BOARDNUM=#{boardNum}
+  	</update>
   
   
    	<resultMap type="QNADTO" id="getDetailResult">

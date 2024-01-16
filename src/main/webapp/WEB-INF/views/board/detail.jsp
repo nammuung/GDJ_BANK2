@@ -34,15 +34,27 @@
                                             <div>
                                             	${boardDTO.boardContents}
                                             </div>
+
+                                            <div>
+                                                <c:forEach items="${boardDTO.fileDTOs}" var="f">
+                                                    <a href="../resources/upload/${board}/${f.fileName}">${f.oriName}</a>
+                                                </c:forEach>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <c:if test="${bbs eq '1'}">
                             <div>
-                                <a href="reply?boardNum=${boardDTO.boardNum}">답글</a>
+                                <c:if test="${bbs eq '1'}">
+                                    <a class="btn btn-primary" href="reply?boardNum=${boardDTO.boardNum}">답글</a>
+                                </c:if>
+                                <a id="update" class="btn btn-info" href="#">Update</a>
+                                <a id="delete" class="btn btn-primary" href="#">Delete</a>
+                                <form id="frm" action="./update" method="get">
+                                    <input type="hidden" name="boardNum" value="${boardDTO.boardNum}">
+                                </form>
                             </div>
-                            </c:if>
+
 
                         </div>
                     </div>
@@ -53,6 +65,7 @@
         <!-- Footer-->
         <!-- 사용전 경로를 꼭 수정 하세요 -->
         <c:import url="../temps/footer.jsp"></c:import>
+        <script src="/resources/js/boardDetail.js"></script>
 
     </body>
 </html>

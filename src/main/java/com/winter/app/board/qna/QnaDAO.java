@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.winter.app.board.BoardDAO;
 import com.winter.app.board.BoardDTO;
+import com.winter.app.board.BoardFileDTO;
 import com.winter.app.util.Pager;
 
 @Repository
@@ -51,7 +52,7 @@ public class QnaDAO implements BoardDAO {
 	@Override
 	public int setDelete(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAMESPACE+"setDelete", boardDTO);
 	}
 	
 	public int setReplyUpdate(QnaDTO qnaDTO)throws Exception{
@@ -60,6 +61,19 @@ public class QnaDAO implements BoardDAO {
 	
 	public int setReplyAdd(QnaDTO qnaDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setReplyAdd", qnaDTO);
+	}
+	
+	
+	public int setFileAdd(BoardFileDTO boardFileDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setFileAdd", boardFileDTO);
+	}
+	
+	public List<BoardFileDTO> getFileList(BoardDTO boardDTO)throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getFileList", boardDTO);
+	}
+	
+	public int setFileDelete(BoardDTO boardDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setFileDelete", boardDTO);
 	}
 
 
