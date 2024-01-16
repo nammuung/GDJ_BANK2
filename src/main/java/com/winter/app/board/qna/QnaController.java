@@ -28,9 +28,9 @@ public class QnaController {
 	
 	@PostMapping("reply")
 	public String setReply(QnaDTO qnaDTO)throws Exception{
+		int result = qnaService.setReply(qnaDTO);
 		
-		
-		return "board/reply";
+		return "redirect:./list";
 	}
 	
 	

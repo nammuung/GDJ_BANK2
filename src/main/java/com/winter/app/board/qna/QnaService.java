@@ -47,7 +47,25 @@ public class QnaService implements BoardService {
 	
 	//reply
 	public int setReply(QnaDTO qnaDTO)throws Exception{
+		//boardNum : 부모의 글번호
+		//boardTitle: 답글제목
+		//boardWriter: 답글작성자
+		//boardContents: 답글내용
 		
+		//1. 부모의 정보는 조회(REF, STEP, DEPTH)
+		QnaDTO parent= (QnaDTO)qnaDAO.getDetail(qnaDTO);
+		
+		//2. 답글 정보 저장(REF, STEP, DEPTH 
+		qnaDTO.setBoardRef(parent.getBoardRef());
+		qnaDTO.setBoardStep(parent.getBoardStep()+1);
+		qnaDTO.setBoardDepth(parent.getBoardStep()+1);
+		
+		//3. 부모의 정보로 step을 업데이트
+		int result = qnaDAO.setReplyUpdate(parent);
+		
+		//4. DB에 답글을 저장
+		result = qnaDAO.setReplyAdd(qnaDTO);
+		return result;
 	}
 	
 	
