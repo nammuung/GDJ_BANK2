@@ -40,7 +40,13 @@
                                   <c:forEach items="${list}" var="dto">  
                                     <tr>
                                         <td>${dto.boardNum}</td>
-                                        <td><a href="./detail?boardNum=${dto.boardNum}">${dto.boardTitle}</a></td>
+                                        <td>
+                                            <a href="./detail?boardNum=${dto.boardNum}">
+                                                
+                                                <c:forEach begin="1" end="${dto.boardDepth}">--</c:forEach>
+                                                ${dto.boardTitle}
+                                            </a>
+                                        </td>
                                         <td>${dto.boardWriter}</td>
                                         <td>${dto.boardDate}</td>
                                         <td>${dto.boardHit}</td>
