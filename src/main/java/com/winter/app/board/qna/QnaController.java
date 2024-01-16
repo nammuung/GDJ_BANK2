@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardDTO;
 import com.winter.app.util.Pager;
@@ -30,6 +31,13 @@ public class QnaController {
 		return "qna";
 	}
 	
+	@PostMapping("delete")
+	public String setDelete(QnaDTO boardDTO)throws Exception{
+		boardDTO.setFlag(1);
+		int result = qnaService.setDelete(boardDTO);
+		return "redirect:./list";
+	}
+	
 	@GetMapping("reply")
 	public String setReply(BoardDTO boardDTO, Model model)throws Exception{
 		model.addAttribute("boardDTO", boardDTO);
@@ -38,8 +46,8 @@ public class QnaController {
 	}
 	
 	@PostMapping("reply")
-	public String setReply(QnaDTO qnaDTO)throws Exception{
-		int result = qnaService.setReply(qnaDTO);
+	public String setReply(QnaDTO qnaDTO, MultipartFile [] attachs)throws Exception{
+		int result = qnaService.setReply(qnaDTO, attachs);
 		
 		return "redirect:./list";
 	}
@@ -51,8 +59,8 @@ public class QnaController {
 	}
 	
 	@PostMapping("add")
-	public String setAdd(BoardDTO boardDTO)throws Exception{
-		int result = qnaService.setAdd(boardDTO);
+	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs)throws Exception{
+		int result = qnaService.setAdd(boardDTO, attachs);
 		return "redirect:./list";
 	}
 	
