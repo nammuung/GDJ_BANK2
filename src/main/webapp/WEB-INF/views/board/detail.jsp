@@ -64,8 +64,9 @@
         </main>
         <!-- Footer-->
         <!-- 사용전 경로를 꼭 수정 하세요 -->
-        <c:import url="../temps/footer.jsp"></c:import>
         <script src="/resources/js/boardDetail.js"></script>
+        <c:import url="../temps/footer.jsp"></c:import>
+        
 
     </body>
 </html>

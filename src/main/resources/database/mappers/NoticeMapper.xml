@@ -53,11 +53,11 @@
   	</resultMap>
   	
   	<select id="getDetail" parameterType="BoardDTO" resultMap="getDetailResult" >
-  		SELECT *
-  		FROM NOTICE N
-  			 LEFT JOIN
-  			 NOTICEFILES NF
-  			 USING (BOARDNUM)
-  		WHERE BOARDNUM=#{boardNum}	  
+		select *
+		from notice N
+		LEFT OUTER JOIN
+		NOITCEFILES NF
+		USING (boardNum)
+		where boardNum=#{boardNum}
   	</select>
   </mapper>
