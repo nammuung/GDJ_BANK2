@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,16 @@ public class NoticeController {
 	@Autowired
 	@Qualifier("noticeService")
 	private BoardService boardService;
+	
+	@ModelAttribute("bbs")
+	public Integer getKind() {
+		return 0;
+	}
+	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return "notice";
+	}
 	
 	@GetMapping("add")
 	public String setAdd()throws Exception{
@@ -50,6 +61,7 @@ public class NoticeController {
 		
 		List<BoardDTO> ar = boardService.getList(pager);
 		model.addAttribute("list", ar);
+		
 		return "board/list";
 	}
 

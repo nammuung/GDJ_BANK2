@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>BoardList</title>
+        <title>${board}List</title>
     <!-- 사용전 경로를 꼭 수정 하세요 -->
 	<c:import url="../temps/head_css.jsp"></c:import>
     </head>
@@ -20,7 +20,7 @@
 
 			<section class="py-5">
                 <div class="text-center mb-5">
-                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">BoardList</span></h1>
+                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">${board}List</span></h1>
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-11 col-xl-9 col-xxl-8">
@@ -42,8 +42,9 @@
                                         <td>${dto.boardNum}</td>
                                         <td>
                                             <a href="./detail?boardNum=${dto.boardNum}">
-                                                
+                                                <c:catch>
                                                 <c:forEach begin="1" end="${dto.boardDepth}">--</c:forEach>
+                                                </c:catch>
                                                 ${dto.boardTitle}
                                             </a>
                                         </td>
