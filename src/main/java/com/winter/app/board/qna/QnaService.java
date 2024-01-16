@@ -45,6 +45,11 @@ public class QnaService implements BoardService {
 		return 0;
 	}
 	
+	//reply
+	public int setReply(QnaDTO qnaDTO)throws Exception{
+		
+	}
+	
 	
 
 }

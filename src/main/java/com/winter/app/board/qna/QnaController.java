@@ -19,6 +19,20 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
+	@GetMapping("reply")
+	public String setReply(BoardDTO boardDTO, Model model)throws Exception{
+		model.addAttribute("boardDTO", boardDTO);
+		
+		return "board/reply";
+	}
+	
+	@PostMapping("reply")
+	public String setReply(QnaDTO qnaDTO)throws Exception{
+		
+		
+		return "board/reply";
+	}
+	
 	
 	@GetMapping("add")
 	public String setAdd()throws Exception{

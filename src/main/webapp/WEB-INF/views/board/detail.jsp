@@ -39,6 +39,10 @@
                                 </div>
                             </div>
 
+                            <div>
+                                <a href="reply?boardNum=${boardDTO.boardNum}">답글</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
