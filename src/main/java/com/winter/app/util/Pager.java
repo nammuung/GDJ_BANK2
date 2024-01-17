@@ -53,6 +53,10 @@ public class Pager {
 	}
 
 	public void makeNum(Long totalCount) {
+		if(totalCount<1) {
+			totalCount=1L;
+		}
+		
 		Long totalPage = 0L;
 		totalPage = totalCount / this.getPerPage();
 
@@ -70,7 +74,7 @@ public class Pager {
 		if (totalPage % perBlock != 0) {
 			totalBlock++;
 		}
-		// 3. Page 값으로 현재 블럭 번호 구하기
+		// 3. 현재 Page 값으로 현재 블럭 번호 구하기
 		Long curBlock = 0L;// 블럭 번호
 		curBlock = this.getPage() / perBlock;
 		if (this.getPage() % perBlock != 0) {

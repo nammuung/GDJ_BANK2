@@ -25,28 +25,30 @@
 					<span class="text-gradient d-inline">${board}List</span>
 				</h1>
 			</div>
-			<div class= "ms-5">
-	<form class="row g-3">
-		<div class="col-auto"> <!-- select -->
-			<select name="searchFind" class="form-select"
-				aria-label="Default select example">
-				<option value="searchFind1">boardTitle</option>
-				<option value="searchFind2">boardWriter</option>
-				<option value="searchFind3">boardContents</option>
-			</select>
-		</div>
+			<div class="ms-5">
+				<form class="row g-3">
+					<div class="col-auto">
+						<!-- select -->
+						<select name="searchFind" class="form-select"
+							aria-label="Default select example">
+							<option value="searchFind1">boardTitle</option>
+							<option value="searchFind2">boardWriter</option>
+							<option value="searchFind3">boardContents</option>
+						</select>
+					</div>
 
-		<div class="col-auto">	<!-- search -->
-			<label for="search" class="visually-hidden">Search</label> <input
-				type="text" name="search" class="form-control" id="search">
-		</div>
-		<div class="col-auto">
-			<button type="submit" class="btn btn-primary mb-3">검색</button>
-		</div>	
-	</form>
-	</div>
-			
-			
+					<div class="col-auto">
+						<!-- search -->
+						<label for="search" class="visually-hidden">Search</label> <input
+							type="text" name="search" class="form-control" id="search">
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn btn-primary mb-3">검색</button>
+					</div>
+				</form>
+			</div>
+
+
 			<div class="row gx-5 justify-content-center">
 				<div class="col-lg-11 col-xl-9 col-xxl-8">
 					<!-- table -->
@@ -62,6 +64,15 @@
 								</tr>
 							</thead>
 							<tbody>
+							<!-- 없는것을 검색했을때 처리 -->
+								<c:if test="${list.size()==0}">
+								<tr>
+								<td colspan="4">검색 결과가 존재하지 않습니다.<td>
+								<tr>
+								</c:if>
+								<!-- ////// -->
+
+							
 								<c:forEach items="${list}" var="dto">
 									<c:set var="f" value="0"></c:set>
 
@@ -122,9 +133,6 @@
 								</ul>
 							</nav>
 						</div>
-
-
-
 
 						<div>
 							<a href="./add" class="btn btn-danger">글쓰기</a>
