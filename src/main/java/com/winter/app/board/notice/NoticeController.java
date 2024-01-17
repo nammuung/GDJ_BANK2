@@ -37,6 +37,25 @@ public class NoticeController {
 		return "notice";
 	}
 	
+	@GetMapping("update")
+	public String setUpdate(BoardDTO boardDTO, Model model)throws Exception{
+		boardDTO = boardService.getDetail(boardDTO);
+		model.addAttribute("boardDTO", boardDTO);
+		return "board/update";
+	}
+	
+	@PostMapping("update")
+	public String setUpdate(BoardDTO boardDTO, MultipartFile[] attachs)throws Exception{
+		int result = boardService.setUpdate(boardDTO, attachs);
+		return "redirect:./list";
+	}
+	
+	@PostMapping("delete")
+	public String setDelete(BoardDTO boardDTO)throws Exception{
+		int result=boardService.setDelete(boardDTO);
+		return "redirect:./list";
+	}
+	
 	@GetMapping("add")
 	public String setAdd()throws Exception{
 		return "board/add";

@@ -28,7 +28,16 @@ public class QnaService implements BoardService {
 	public List<BoardDTO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
 		pager.makeRow();
-		return qnaDAO.getList(pager);
+		Long totalCount = qnaDAO.getTotalCount(pager);
+		pager.makeNum(totalCount);
+		System.out.println("검색이 안됬을 경우");
+		System.out.println(pager.getStartNum());
+		System.out.println(pager.getLastNum());
+		System.out.println(pager.isLast());
+		System.out.println(pager.isStart());
+		List<BoardDTO> ar = this.qnaDAO.getList(pager);
+		return ar;
+//		return qnaDAO.getList(pager);
 	}
 
 	@Override
@@ -63,9 +72,9 @@ public class QnaService implements BoardService {
 	}
 
 	@Override
-	public int setUpdate(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int setUpdate(BoardDTO boardDTO, MultipartFile [] attachs) throws Exception {
+
+		return qnaDAO.setUpdate(boardDTO);
 	}
 
 	@Override

@@ -2,62 +2,131 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <!-- mapper namespace는 비우면 에러 -->
-  <mapper namespace="com.winter.app.board.notice.NoticeDAO">
-  	
-  	<!-- FileAdd -->
-  	<insert id="setFileAdd" parameterType="BoardFileDTO">
-  		INSERT INTO NOTICEFILES 
-  		(FILENUM, BOARDNUM, FILENAME, ORINAME)
-  		VALUES
-  		(BOARD_SEQ.NEXTVAL, #{boardNum}, #{fileName}, #{oriName})
-  	</insert>
-  	
-  	<!-- add -->
-  	<insert id="setAdd" parameterType="BoardDTO">
-  		<selectKey keyProperty="boardNum" resultType="Long" order="BEFORE">
-  			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
-  		</selectKey>
-  		INSERT INTO NOTICE
-  		(BOARDNUM, BOARDTITLE, BOARDWRITER, BOARDCONTENTS, BOARDDATE, BOARDHIT)
-  		VALUES
-  		(#{boardNum}, #{boardTitle}, #{boardWriter},#{boardContents}, SYSDATE, 0)
-  	</insert>
-  	
-  	
-  	<!-- list -->
-  	<select id="getList" resultType="NoticeDTO" parameterType="Pager">
-  		SELECT * FROM
-  		(SELECT ROWNUM R, N.* FROM
-  			(
-  				SELECT * FROM NOTICE 
-  			 	
-  				ORDER BY BOARDNUM DESC
-  			) 
-  		N)
-  		WHERE R BETWEEN #{startRow} AND #{lastRow}	
-  	</select>
-  	<resultMap type="NoticeDTO" id="getDetailResult">
-  		<id column="BOARDNUM" property="boardNum"/>
-  		<result column="BOARDTITLE" property="boardTitle"/>
-  		<result column="BOARDContents" property="boardContents"/>
-  		<result column="BOARDWriter" property="boardWriter"/>
-  		<result column="BOARDDATE" property="boardDate"/>
-  		<result column="BOARDHIT" property="boardHit"/>
-  		<collection property="fileDTOs" javaType="List" ofType="BoardFileDTO">
-  			<id property="fileNum" column="FILENUM"/>
-  			<result property="fileName" column="FILENAME"/>
-  			<result property="oriName" column="ORINAME"/>
-  		</collection>
-  		
-  	</resultMap>
-  	
-  	<select id="getDetail" parameterType="BoardDTO" resultMap="getDetailResult" >
-		select *
-		from notice N
-		LEFT OUTER JOIN
-		NOITCEFILES NF
-		USING (boardNum)
-		where boardNum=#{boardNum}
-  	</select>
-  </mapper>
+<!-- mapper namespace는 비우면 에러 -->
+<mapper namespace="com.winter.app.board.notice.NoticeDAO">
+
+	<sql id="search2">
+		WHERE
+		<choose>
+			<when test="searchFind=='searchFind1'">
+				boardTitle like '%'||#{search}||'%'
+			</when>
+			<when test="searchFind=='searchFind2'">
+				boardWriter like '%'||#{search}||'%'
+			</when>
+			<when test="searchFind=='searchFind3'">
+				boardContents like '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				boardNum like '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+	</sql>
+
+
+
+	<sql id="search">
+		WHERE boardTitle LIKE '%'||#{search}||'%'
+	</sql>
+
+
+
+
+
+
+	<!-- file List -->
+	<select id="getFileList" parameterType="BoardDTO"
+		resultType="BoardFileDTO">
+		SELECT FILENAME FROM NOTICEFILES WHERE BOARDNUM=#{boardNum}
+	</select>
+
+	<!-- FileAdd -->
+	<insert id="setFileAdd" parameterType="BoardFileDTO">
+		INSERT INTO NOTICEFILES
+		(FILENUM, BOARDNUM, FILENAME, ORINAME)
+		VALUES
+		(BOARD_SEQ.NEXTVAL, #{boardNum}, #{fileName}, #{oriName})
+	</insert>
+
+
+	<update id="setUpdate" parameterType="BoardDTO">
+		UPDATE NOTICE
+		<set>
+			<if test="boardTitle != null and boardTitle !=''">
+				BOARDTITLE=#{boardTitle},
+			</if>
+			<if test="boardContents != null">
+				BOARDCONTENTS=#{boardContents}
+			</if>
+		</set>
+		WHERE BOARDNUM=#{boardNum}
+	</update>
+
+
+
+
+	<!-- Delete -->
+	<delete id="setDelete" parameterType="BoardDTO">
+		DELETE NOTICE WHERE BOARDNUM=#{boardNum}
+	</delete>
+
+	<!-- add -->
+	<insert id="setAdd" parameterType="BoardDTO">
+		<selectKey keyProperty="boardNum" resultType="Long"
+			order="BEFORE">
+			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO NOTICE
+		(BOARDNUM, BOARDTITLE, BOARDWRITER, BOARDCONTENTS, BOARDDATE, BOARDHIT)
+		VALUES
+		(#{boardNum}, #{boardTitle}, #{boardWriter},#{boardContents}, SYSDATE, 0)
+	</insert>
+
+
+	<!-- list -->
+	<select id="getList" resultType="NoticeDTO"
+		parameterType="Pager">
+		SELECT * FROM
+		(SELECT ROWNUM R, N.* FROM
+		(
+		SELECT * FROM NOTICE 
+		 <include refid="search2"></include>  
+		ORDER BY BOARDNUM DESC
+		)
+		N)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	<resultMap type="NoticeDTO" id="getDetailResult">
+		<id column="BOARDNUM" property="boardNum" />
+		<result column="BOARDTITLE" property="boardTitle" />
+		<result column="BOARDContents" property="boardContents" />
+		<result column="BOARDWriter" property="boardWriter" />
+		<result column="BOARDDATE" property="boardDate" />
+		<result column="BOARDHIT" property="boardHit" />
+		<collection property="fileDTOs" javaType="List"
+			ofType="BoardFileDTO">
+			<id property="fileNum" column="FILENUM" />
+			<result property="fileName" column="FILENAME" />
+			<result property="oriName" column="ORINAME" />
+		</collection>
+
+	</resultMap>
+
+	<select id="getDetail" parameterType="BoardDTO"
+		resultMap="getDetailResult">
+		SELECT *
+		FROM NOTICE N
+		LEFT JOIN
+		NOTICEFILES NF
+		USING (BOARDNUM)
+		WHERE BOARDNUM=#{boardNum}
+	</select>
+	
+		<!-- getTotal -->
+	<select id="getTotalCount" resultType="Long">
+	SELECT COUNT(BOARDNUM) FROM NOTICE
+	 <include refid="search2"></include>
+	</select>
+	
+	
+</mapper>

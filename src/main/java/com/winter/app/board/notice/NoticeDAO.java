@@ -21,7 +21,7 @@ public class NoticeDAO implements BoardDAO {
 	@Override
 	public Long getTotalCount(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NAMESPACE+"getTotalCount", pager);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class NoticeDAO implements BoardDAO {
 		
 		return sqlSession.selectList(NAMESPACE+"getList", pager);
 	}
-
+	
 	@Override
 	public BoardDTO getDetail(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
@@ -44,18 +44,21 @@ public class NoticeDAO implements BoardDAO {
 
 	@Override
 	public int setUpdate(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAMESPACE+"setUpdate", boardDTO);
 	}
 
 	@Override
 	public int setDelete(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete(NAMESPACE+"setDelete", boardDTO);
 	}
 	
 	public int setFileAdd(BoardFileDTO boardFileDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setFileAdd", boardFileDTO);
+	}
+	
+	public List<BoardFileDTO> getFileList(BoardDTO boardDTO)throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getFileList", boardDTO);
 	}
 	
 }

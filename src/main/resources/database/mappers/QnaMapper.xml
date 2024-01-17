@@ -4,6 +4,42 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <!-- mapper namespace는 비우면 에러 -->
   <mapper namespace="com.winter.app.board.qna.QnaDAO">
+  
+  	<sql id="search2">
+		WHERE
+		<choose>
+			<when test="searchFind=='searchFind1'">
+				boardTitle like '%'||#{search}||'%'
+			</when>
+			<when test="searchFind=='searchFind2'">
+				boardWriter like '%'||#{search}||'%'
+			</when>
+			<when test="searchFind=='searchFind3'">
+				boardContents like '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				boardNum like '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+	</sql>
+  
+  
+  
+    	<update id="setUpdate" parameterType="BoardDTO">
+  		UPDATE QNA 
+  		<set>
+	  		<if test="boardTitle != null and boardTitle !=''">
+	  		BOARDTITLE=#{boardTitle},
+	  		</if>
+	  		<if test="boardContents != null">
+	  		BOARDCONTENTS=#{boardContents}
+	  		</if>
+  		</set>
+  		WHERE BOARDNUM=#{boardNum}
+  	</update>
+  
+  
+  
   	<!-- file Delete -->
   	<delete id="setFileDelete" parameterType="BoardDTO">
   		DELETE QNAFILES WHERE BOARDNUM=#{boardNum}
@@ -91,11 +127,18 @@
   		SELECT * FROM
   		(SELECT ROWNUM R, N.* FROM
   			(
-  				SELECT * FROM QNA 
-  			 	
+  				SELECT * FROM QNA  
+  			 	<include refid="search2"></include> 
   				ORDER BY BOARDREF DESC, BOARDSTEP ASC
   			) 
   		N)
   		WHERE R BETWEEN #{startRow} AND #{lastRow}	
   	</select>
+  			<!-- getTotal -->
+	<select id="getTotalCount" resultType="Long" parameterType="Pager">
+	SELECT COUNT(BOARDNUM) FROM QNA
+	 <include refid="search2"></include>
+	</select>
+  	
+  	
   </mapper>
