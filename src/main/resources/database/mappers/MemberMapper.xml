@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper namespace는 비우면 에러 -->
+<mapper namespace="com.winter.app.board.member.MemberDAO">
+
+
+	<resultMap type="MemberDTO" id="getDetailResult">
+		<id column="USERNAME" property="userName" />
+			<result column="PASSWORD" property="password" />
+			<result column="NAME" property="name" />
+			<result column="EMAIL" property="email" />
+			<result column="PHONE" property="phone" />
+			<result column="ADDRESS" property="address" />
+			<!-- 1:1의 관계에서는 association을 사용 
+				 1:N의 관계에서는 collection 을 사용함-->
+		<association property="avatarDTO" javaType="AvatarDTO">
+			<id column="FILENUM" property="fileNum" />
+			<result column="FILENAME" property="fileName" />
+			<result column="ORINAME" property="oriName" />
+		</association>
+
+	</resultMap>
+
+	<!-- 로그인 -->
+	<select id="getDetail" parameterType="MemberDTO"
+		resultMap="getDetailResult">
+		select *
+		from MEMBER M
+		left join
+		AVATAR A
+		using (USERNAME)
+		where
+		USERNAME=#{userName}
+	</select>
+
+
+
+	<!-- 회원가입 -->
+	<insert id="setJoin" parameterType="MemberDTO">
+		INSERT INTO MEMBER VALUES
+		(#{userName}, #{password}, #{name}, #{email},
+		#{phone}, #{address})
+	</insert>
+
+
+	<!-- FileAdd -->
+	<insert id="setAvatarAdd" parameterType="AvatarDTO">
+		INSERT INTO AVATAR
+		(FILENUM, USERNAME, FILENAME, ORINAME)
+		VALUES
+		(BOARD_SEQ.NEXTVAL,
+		#{userName}, #{fileName}, #{oriName})
+	</insert>
+
+</mapper>

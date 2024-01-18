@@ -2,6 +2,8 @@ package com.winter.app.board.notice;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardDTO;
 import com.winter.app.board.BoardService;
+import com.winter.app.board.member.MemberDTO;
 import com.winter.app.util.Pager;
 
 import oracle.jdbc.proxy.annotation.Post;
@@ -61,7 +64,12 @@ public class NoticeController {
 		return "board/add";
 	}
 	@PostMapping("add")
-	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs)throws Exception{
+	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs, HttpSession session)throws Exception{
+		
+		// write 작성 안하고 session에서 받아오게 설정
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		boardDTO.setBoardWriter(memberDTO.getUserName());
+		
 		int result = boardService.setAdd(boardDTO, attachs);
 		return "redirect:./list";
 	}

@@ -2,6 +2,8 @@ package com.winter.app.board.qna;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardDTO;
+import com.winter.app.board.member.MemberDTO;
 import com.winter.app.util.Pager;
 
 @Controller
@@ -46,7 +49,13 @@ public class QnaController {
 	}
 	
 	@PostMapping("reply")
-	public String setReply(QnaDTO qnaDTO, MultipartFile [] attachs)throws Exception{
+	public String setReply(QnaDTO qnaDTO, MultipartFile [] attachs, HttpSession session)throws Exception{
+		
+		// write 작성 안하고 session에서 받아오게 설정
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		qnaDTO.setBoardWriter(memberDTO.getUserName());
+		
+		
 		int result = qnaService.setReply(qnaDTO, attachs);
 		
 		return "redirect:./list";
@@ -59,7 +68,12 @@ public class QnaController {
 	}
 	
 	@PostMapping("add")
-	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs)throws Exception{
+	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs, HttpSession session)throws Exception{
+		
+		// write 작성 안하고 session에서 받아오게 설정
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		boardDTO.setBoardWriter(memberDTO.getUserName());
+		
 		int result = qnaService.setAdd(boardDTO, attachs);
 		return "redirect:./list";
 	}

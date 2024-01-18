@@ -103,6 +103,8 @@
 		<result column="BOARDWriter" property="boardWriter" />
 		<result column="BOARDDATE" property="boardDate" />
 		<result column="BOARDHIT" property="boardHit" />
+		
+		<!-- 1:N의 관계에서는 collection -->
 		<collection property="fileDTOs" javaType="List"
 			ofType="BoardFileDTO">
 			<id property="fileNum" column="FILENUM" />
