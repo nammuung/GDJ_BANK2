@@ -37,35 +37,43 @@
                                 <!-- https://startbootstrap.com/solution/contact-forms-->
                                 <!-- to get an API token!-->
                                 <form id="contactForm" action="./add" method="post" enctype="multipart/form-data">
+                          	 <input type="hidden" name="productNum" value="${prodcutDTO.productNum}"> 
                                     <!-- 상품명 input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" name="productName" id="name" type="text" placeholder="상품명 입력" data-sb-validations="required" />
-                                        <label for="name">상품명</label>
+                                        <input class="form-control" name="productName" id="productName" type="text" placeholder="상품명 입력" data-sb-validations="required" />
+                                        <label for="productName">상품명</label>
                                         <div class="invalid-feedback" data-sb-feedback="name:required">상품명은 필수 입니다.</div>
                                     </div>
                                                                         
                                     <!-- Message input-->
                                     <div class="form-floating mb-3">
-                                        <textarea class="form-control" name="productContents" id="message" type="text" placeholder="상품 상세 설명" style="height: 10rem" data-sb-validations="required"></textarea>
-                                        <label for="message">상품상세</label>
+                                        <textarea class="form-control" name="productContents" id="productContents" type="text" placeholder="상품 상세 설명" style="height: 10rem" data-sb-validations="required"></textarea>
+                                        <label for="productContents">상품상세</label>
                                         <div class="invalid-feedback" data-sb-feedback="message:required">상품내용 필수 입니다.</div>
                                     </div>
 
                                     <!-- 이자율 input-->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" name="productRate" id="rate" type="text" placeholder="이자율 입력" data-sb-validations="required" />
-                                        <label for="rate">이자율</label>
+                                        <label for="productRate">이자율</label>
                                         <div class="invalid-feedback" data-sb-feedback="rate:required">상품명은 필수 입니다.</div>
+                                    </div>
+                                    
+                                                                        <!-- 이자율 input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" name="productJumsu" id="productJumsu" type="text" placeholder="점수 입력" data-sb-validations="required" />
+                                        <label for="productJumsu">점수</label>
+                                        <div class="invalid-feedback" data-sb-feedback="rate:required">점수 필수 입니다.</div>
                                     </div>
 
                                    <!-- 첨부파일 input-->
                                    <div class="mb-3">
                                     <label for="rate">파일첨부</label>
-                                    <input class="form-control" type="file" name="attach" />
-                                    <input class="form-control" type="file" name="attach" />
-                                    <input class="form-control" type="file" name="attach" />
-                                    <input class="form-control" type="file" name="attach" />
-                                    <input class="form-control" type="file" name="attach" />
+                                    <input class="form-control" type="file" name="attachs" />
+                                    <input class="form-control" type="file" name="attachs" />
+                                    <input class="form-control" type="file" name="attachs" />
+                                    <input class="form-control" type="file" name="attachs" />
+                                    <input class="form-control" type="file" name="attachs" />
                                     
                                     </div>
 

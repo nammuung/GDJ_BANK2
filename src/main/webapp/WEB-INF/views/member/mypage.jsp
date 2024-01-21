@@ -5,10 +5,10 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="viewport" content="widtd=device-widtd, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>My Page</title>
+        <meta name="autdor" content="" />
+        <title>Personal - Start Bootstrap tdeme</title>
     <!-- 사용전 경로를 꼭 수정 하세요 -->
 	<c:import url="../temps/head_css.jsp"></c:import>
     </head>
@@ -17,42 +17,58 @@
             <!-- Navigation-->
             <!-- 사용전 경로를 꼭 수정 하세요 -->
 			<c:import url="../temps/header.jsp"></c:import>
+
+
             <section class="py-5">
                 <div class="container px-5 mb-5">
                     <div class="text-center mb-5">
-                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">My Page</span></h1>
+                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Projects</span></h1>
                     </div>
                     <div class="row gx-5 justify-content-center">
                         <div class="col-lg-11 col-xl-9 col-xxl-8">
-                            
-                            <!--project-->
+                            <!-- Project Card 1-->
                             <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
                                 <div class="card-body p-0">
                                     <div class="d-flex align-items-center">
                                         <div class="p-5">
-                                            <div>
-                                            ${a.sessionScope}
-                                            </div>
-											
+                                            <h2 class="fw-bolder">${member.userName}</h2>
+
+                                            <table class="table table-hover">
+                                                
+                                                    <tr>
+                                                        <td class="table-dark">Name</td>
+                                                        <td>${member.name}</td>                                                        
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="table-dark">Phone</td>
+                                                        <td>${member.phone}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="table-dark">Email</td>
+                                                        <td>${member.email}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="table-dark">Address</td>
+                                                        <td>${member.address}</td>
+                                                    </tr>
+                                            </table>
+                                            
                                         </div>
+                                        <img class="img-fluid" src="/resources/upload/member/${member.avatarDTO.fileName}" alt="..." />
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                            </div>
-
-
                         </div>
                     </div>
                 </div>
-            </section>    
-
+            </section>
         </main>
         <!-- Footer-->
         <!-- 사용전 경로를 꼭 수정 하세요 -->
-        <script src="/resources/js/boardDetail.js"></script>
         <c:import url="../temps/footer.jsp"></c:import>
-        
 
     </body>
 </html>

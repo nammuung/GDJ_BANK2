@@ -22,7 +22,84 @@
 	        	<div class="text-center mb-5">
                     <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Product List</span></h1>
                 </div>
+                <!--  -->
+
+<div>
+	<form class="row g-3">
+		<div class="col-auto"> <!-- select -->
+			<select name="searchFind" class="form-select"
+				aria-label="Default select example">
+				<option value="searchFind1">productName</option>
+				<option value="searchFind2">productContents</option>
+				<option value="searchFind3">productJumsu</option>
+			</select>
+		</div>
+
+		<div class="col-auto">	<!-- search -->
+			<label for="search" class="visually-hidden">Search</label> <input
+				type="text" name="search" class="form-control" id="search">
+		</div>
+		<div class="col-auto">
+			<button type="submit" class="btn btn-primary mb-3">검색</button>
+		</div>	
+	</form>
+	</div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>상품번호</th>
+				<th>상품명</th>
+				<th>이자율</th>
+				<th>평점</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${requestScope.list}" var="dto">
+			<tr>
+				<td>${pageScope.dto.productNum}</td>
+				<td><a href="./detail?productNum=${dto.productNum}">${pageScope.dto.productName}</a></td>
+				<td>${pageScope.dto.productRate}</td>
+				<td>${pageScope.dto.productJumsu}</td>
+			</tr>
+			</c:forEach>
+		</tbody>
+
+	</table>
+	<div>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<c:if test="${!pager.start}">															
+				<li class="page-item"><a class="page-link" href="./list?page=${pager.startNum-1}&search=${pager.search}&searchFind=${pager.searchFind}"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+				</a></li>
+				</c:if>
+				
+				<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+				<li class="page-item"><a class="page-link" href="./list?page=${i}">${i}</a></li>
+				</c:forEach>
+				
+				<!-- false일때만 보여지게 (true는 없어지게하는거임) -->
+				<c:if test="${!pager.last}">
+				<li class="page-item">
+					<a class="page-link" href="./list?page=${pager.lastNum+1}&search=${pager.search}&searchFind=${pager.searchFind}"aria-label="Next"> 
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+				</c:if>
+				
+			</ul>
+		</nav>
+	</div>
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                <!--  -->
                 <div>
                 	<a href="add" class="btn btn-danger">상품등록</a>
                 </div>		

@@ -23,19 +23,18 @@ public class MemberController {
 	
 	//
 	@GetMapping("mypage")
-	public String mypage(MemberDTO memberDTO, HttpSession session)throws Exception{
-		// write 작성 안하고 session에서 받아오게 설정
-		memberDTO = (MemberDTO)session.getAttribute("member");
-		memberDTO.setName(memberDTO.getUserName());
-		memberDTO.setPassword(memberDTO.getPassword());
-		System.out.println(memberDTO.getPassword());
-		return "member/mypage";
-	}
+	public void getMypage()throws Exception{}
 	
 	
 	// 입력 폼
 	@GetMapping("join")
 	public void setJoin()throws Exception{
+		
+	}
+	
+	//약관동의
+	@GetMapping("ok")
+	public void ok()throws Exception{
 		
 	}
 	// 데이터 전달

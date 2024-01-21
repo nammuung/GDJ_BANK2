@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper namespace 비워두면 에러남 -->
+<mapper namespace="com.winter.app.product.ProductDAO">
+
+	<sql id="search2">
+		WHERE
+		<choose>
+			<when test="searchFind=='searchFind1'">
+				productName like '%'||#{search}||'%'
+			</when>
+			<when test="searchFind=='searchFind2'">
+				productContents like '%'||#{search}||'%'
+			</when>
+			<when test="searchFind=='searchFind3'">
+				productJumsu like '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				productNum like '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+	</sql>
+
+
+
+	<sql id="search">
+		WHERE productName LIKE '%'||#{search}||'%'
+	</sql>
+
+
+	<!-- File List 1:N -->
+	<select id="getListFiles" resultType="ProductFileDTO"
+		parameterType="ProductDTO">
+		SELECT * FROM PRODUCTFILES
+		WHERE productNum=#{productNum}
+	</select>
+
+	<!-- insert -->
+	<insert id="setFileAdd" parameterType="ProductFileDTO">
+		INSERT INTO PRODUCTFILES
+		VALUES(PRODUCTFILES_SEQ.nextval, #{fileName}, #{oriName},
+		#{productNum})
+	</insert>
+
+	<!-- update -->
+	<update id="setUpdate" parameterType="ProductDTO">
+		UPDATE product SET
+		productName=#{productName},
+		productContents=#{productContents},
+		productRate=#{productRate},
+		productJumsu=#{productJumsu}
+		WHERE productNum=#{productNum}
+	</update>
+
+	<!-- Delete -->
+	<delete id="setDelete" parameterType="ProductDTO">
+		DELETE product WHERE
+		productNum=#{productNum}
+
+	</delete>
+
+
+	<!-- Add -->
+	<insert id="setAdd" parameterType="ProductDTO">
+		<selectKey keyProperty="productNum" order="BEFORE"
+			resultType="Long">
+			select product_SEQ.nextval from DUAL
+		</selectKey>
+		INSERT INTO PRODUCT
+		VALUES (
+		#{productNum},
+		#{productName},
+		#{productContents},
+		#{productRate},
+		#{productJumsu},
+		0,
+		1
+		)
+	</insert>
+
+
+	<!-- list -->
+	<select id="getList" resultType="ProductDTO"
+		parameterType="Pager">
+		select * from
+		(
+		select ROWNUM R, P.* FROM
+		(
+		select * from PRODUCT
+		<include refid="search2"></include>
+		order by productNum DESC
+		) P
+		)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+
+
+
+	<resultMap type="ProductDTO" id="getDetailResult">
+		<!-- PK -->
+		<id column="productNum" property="productNum" />
+		<!-- PK를 제외한 나머지 -->
+		<result column="productName" property="productName" />
+		<result column="productContents" property="productContents" />
+		<result column="productRate" property="productRate" />
+		<result column="productJumsu" property="productJumsu" />
+		<collection property="productFileDTOs" javaType="List"
+			ofType="ProductFileDTO">
+			<id column="filenum" property="filenum" />
+			<result column="FILENAME" property="fileName" />
+			<result column="ORINAME" property="oriName" />
+		</collection>
+
+	</resultMap>
+
+
+
+	<!-- detail -->
+	<select id="getDetail" resultMap="getDetailResult"
+		parameterType="ProductDTO">
+		select *
+		from PRODUCT P
+		LEFT OUTER JOIN
+		PRODUCTFILES PF
+		USING (productNum)
+		where productNum=#{productNum}
+	</select>
+
+	<!-- getTotal -->
+	<select id="getTotal" resultType="Long">
+		SELECT COUNT(PRODUCTNUM) FROM PRODUCT
+		<include refid="search2"></include>
+	</select>
+</mapper>
