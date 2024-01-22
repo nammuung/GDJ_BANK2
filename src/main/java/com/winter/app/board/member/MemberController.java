@@ -23,7 +23,9 @@ public class MemberController {
 	
 	//
 	@GetMapping("mypage")
-	public void getMypage()throws Exception{}
+	public void getMypage(HttpSession session)throws Exception{
+		
+	}
 	
 	
 	// 입력 폼
@@ -38,7 +40,7 @@ public class MemberController {
 		
 	}
 	//update
-	@PostMapping
+	@PostMapping("update")
 	public String setUpdate(MemberDTO memberDTO, HttpSession session)throws Exception{
 		//DB Update 후 Mypage로 이동
 		MemberDTO m = (MemberDTO)session.getAttribute("member");
