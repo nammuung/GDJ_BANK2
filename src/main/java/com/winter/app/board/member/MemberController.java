@@ -62,6 +62,15 @@ public class MemberController {
 	public void ok()throws Exception{
 		
 	}
+	
+	
+	@GetMapping("agreement")
+	public void setAgreement()throws Exception{
+		
+	}
+
+	
+	
 	// 데이터 전달
 	@PostMapping("join")
 	public String setJoin(MemberDTO memberDTO, MultipartFile avatar, Model model)throws Exception{

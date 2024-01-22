@@ -20,8 +20,8 @@
 					 -->
 	</div>
 	<div class="mb-3">
-		<label for="contents" class="form-label">Contents</label>
-		<textarea class="form-control" id="contents" rows="3"
+		<label for="boardContents" class="form-label">Contents</label>
+		<textarea class="form-control" id="boardContents" rows="3"
 			name="boardContents">${boardDTO.boardContents}</textarea>
 	</div>
 
