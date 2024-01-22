@@ -19,6 +19,12 @@ public class MemberService {
 	@Autowired
 	private ServletContext servletContext;
 	
+	
+	//mypage
+	public MemberDTO getDetail(MemberDTO memberDTO)throws Exception{
+		return memberDAO.getDetail(memberDTO);
+	}
+	
 	//로그인
 	public MemberDTO getLogin(MemberDTO memberDTO)throws Exception{
 		// 비밀번호 비교하기위해서 새로 선언함 ( 비밀번호를 꺼내오는 용도 )
