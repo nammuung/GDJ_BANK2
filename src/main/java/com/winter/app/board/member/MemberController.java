@@ -32,6 +32,24 @@ public class MemberController {
 		
 	}
 	
+	//update
+	@GetMapping("update")
+	public void setUpdate() throws Exception{
+		
+	}
+	//update
+	@PostMapping
+	public String setUpdate(MemberDTO memberDTO, HttpSession session)throws Exception{
+		//DB Update 후 Mypage로 이동
+		MemberDTO m = (MemberDTO)session.getAttribute("member");
+		memberDTO.setUserName(m.getUserName());
+		memberDTO.setAvatarDTO(m.getAvatarDTO());
+		session.setAttribute("member", memberDTO);
+		int result = memberService.setUpdate(memberDTO);
+		return "redirect:./mypage";
+	}
+	
+	
 	//약관동의
 	@GetMapping("ok")
 	public void ok()throws Exception{

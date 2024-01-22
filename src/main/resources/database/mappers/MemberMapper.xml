@@ -36,6 +36,18 @@
 	</select>
 
 
+	<!-- update -->
+	<update id="setUpdate" parameterType="MemberDTO">
+		UPDATE MEMBER SET
+		password=#{password},
+		name=#{name},
+		email=#{email},
+		phone=#{phone},
+		address=#{address}
+		WHERE userName=#{userName}
+	</update>
+
+
 
 	<!-- 회원가입 -->
 	<insert id="setJoin" parameterType="MemberDTO">

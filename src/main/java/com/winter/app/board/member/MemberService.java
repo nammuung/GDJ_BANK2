@@ -67,6 +67,9 @@ public class MemberService {
 		return memberDAO.mypage(memberDTO);
 	}
 	
+	public int setUpdate (MemberDTO memberDTO)throws Exception{
+		return memberDAO.setUpdate(memberDTO);
+	}
 
 	
 	
