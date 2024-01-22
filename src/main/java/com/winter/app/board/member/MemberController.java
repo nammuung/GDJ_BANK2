@@ -38,7 +38,7 @@ public class MemberController {
 		
 	}
 	//update
-	@PostMapping
+	@PostMapping("update")
 	public String setUpdate(MemberDTO memberDTO, HttpSession session)throws Exception{
 		//DB Update 후 Mypage로 이동
 		MemberDTO m = (MemberDTO)session.getAttribute("member");
