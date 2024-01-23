@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- mapper namespace는 비우면 에러 -->
+  <mapper namespace="com.winter.app.account.AccountDAO">
+  
+
+	<insert id="setAdd" parameterType="AccountDTO">
+		INSERT INTO account
+		(account, userName, productNum, accountPw, accountDate, accountBalance)
+		VALUES
+		(#{account}, #{userName}, #{productNum}, #{accountPw}, SYSDATE, 0)	
+	</insert>
+	
+
+
+
+	
+</mapper>
