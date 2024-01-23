@@ -2,6 +2,8 @@ package com.winter.app.product;
 
 import java.util.List;
 
+import com.winter.app.account.AccountDTO;
+
 
 
 public class ProductDTO {
@@ -11,6 +13,13 @@ public class ProductDTO {
 	private	Double productRate;
 	private Double productJumsu;
 	private Integer productCount;
+	private List<AccountDTO> accountDTOs;
+	public List<AccountDTO> getAccountDTOs() {
+		return accountDTOs;
+	}
+	public void setAccountDTOs(List<AccountDTO> accountDTOs) {
+		this.accountDTOs = accountDTOs;
+	}
 	public Integer getProductCount() {
 		return productCount;
 	}

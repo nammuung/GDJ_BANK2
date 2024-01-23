@@ -28,7 +28,6 @@
 				</c:if>
 				<c:if test="${not empty member}">
 				<li class="nav-item"><a class="nav-link" href="/member/mypage">mypage</a></li>
-				<li class="nav-item"><a class="nav-link" href="/account/add">계좌생성</a></li>
 				<li class="nav-item"><a class="nav-link" href="/member/logout">logout</a></li>
 				</c:if>
 			</ul>

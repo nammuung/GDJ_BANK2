@@ -1,35 +1,43 @@
 package com.winter.app.account;
 
-import java.util.Calendar;
 import java.util.Date;
 
-import com.winter.app.board.member.MemberDTO;
-import com.winter.app.product.ProductDTO;
-
-public class AccountDTO extends ProductMemDTO{
-	
-	private Long account;
-	private Long accountPw;
-	private Long accountDate;
+public class AccountDTO {
+	private Long accountNum;
+	private String userName;
+	private Long productNum;
+	private Integer accountPW;
+	private Date accountDate;
 	private Long accountBalance;
-
 	
-	public Long getAccount() {
-		return account;
+	public Long getAccountNum() {
+		return accountNum;
 	}
-	public void setAccount(Long account) {
-		this.account = account;
+	public void setAccountNum(Long accountNum) {
+		this.accountNum = accountNum;
 	}
-	public Long getAccountPw() {
-		return accountPw;
+	public String getUserName() {
+		return userName;
 	}
-	public void setAccountPw(Long accountPw) {
-		this.accountPw = accountPw;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public Long getAccountDate() {
+	public Long getProductNum() {
+		return productNum;
+	}
+	public void setProductNum(Long productNum) {
+		this.productNum = productNum;
+	}
+	public Integer getAccountPW() {
+		return accountPW;
+	}
+	public void setAccountPW(Integer accountPW) {
+		this.accountPW = accountPW;
+	}
+	public Date getAccountDate() {
 		return accountDate;
 	}
-	public void setAccountDate(Long accountDate) {
+	public void setAccountDate(Date accountDate) {
 		this.accountDate = accountDate;
 	}
 	public Long getAccountBalance() {

@@ -1,30 +1,63 @@
 package com.winter.app.account;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-@RequestMapping (value = "/account/*")
-public class AccountController {
+import com.winter.app.board.member.MemberDTO;
+import com.winter.app.product.ProductDTO;
+import com.winter.app.util.Pager;
 
+@Controller
+@RequestMapping("/account/*")
+public class AccountController {
 	@Autowired
 	private AccountService accountService;
-
+	
 	@GetMapping("add")
-	public String setadd() throws Exception {
-		return "account/add";
+	public void add(ProductDTO productDTO, Model model) throws Exception {
+		Long productNum = productDTO.getProductNum();
+		
+		model.addAttribute("dto", productNum);
+		
 	}
-
 	@PostMapping("add")
-	public String setadd(AccountDTO accountDTO, HttpSession session) throws Exception {
-		int result = accountService.setAdd(accountDTO);
-		return "redirect:./list";
+	public String add(AccountDTO accountDTO,HttpSession session, Model model) throws Exception {
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		Long nowTime = System.currentTimeMillis();
+		
+		accountDTO.setUserName(memberDTO.getUserName());
+		accountDTO.setAccountNum(nowTime);
+		
+		int result = accountService.add(accountDTO);
+		
+		String msg ="계좌 개설 실패 했음";
+		String path ="../";
+		if(result>0) {
+			msg="계좌 개설 성공 했음";
+			path="../";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("path", path);
+		
+		return "commons/result";
 	}
-
+	
+	@GetMapping("list")
+	public String list(Model model, Pager pager) throws Exception{
+		
+		List<AccountDTO> ar = accountService.list(pager);
+		
+		model.addAttribute("list", ar);
+		
+		return "account/list";
+		
+	}
 }

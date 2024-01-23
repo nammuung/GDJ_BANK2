@@ -55,6 +55,8 @@
 								</div>
 							</div>
 							<div>
+							<c:if test="${not empty member}">							
+							<a id="add" class="btn btn-primary" href="/account/add?productNum=${productDTO.productNum}">상품가입</a>
 								<a id="update" class="btn btn-info" href="#">Update</a> <a
 									id="delete" class="btn btn-primary" href="#">Delete</a>
 								<form id="frm" action="./update" method="get">
@@ -62,6 +64,8 @@
 										value="${productDTO.productNum}">
 								</form>
 							</div>
+							</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
