@@ -13,13 +13,18 @@
 
 
 
-	<select id="list" resultMap="listResult" parameterType="MemberDTO">
+	<select id="list" resultMap="listResult" parameterType="MAP">
+select * from
+(select ROWNUM R, PA.* from
+(
 		SELECT * 
 		FROM PRODUCT
 			 LEFT JOIN
 			 ACCOUNT
 			 USING (PRODUCTNUM)
-		WHERE USERNAME = #{userName}
+		WHERE USERNAME = #{userName}) PA
+)
+where R BETWEEN #{startRow} and #{lastRow}
 	</select>
 	<resultMap type="ProductDTO" id="listResult">
 		<id column="PRODUCTNUM" property="productNum"/>
@@ -41,10 +46,10 @@
 	
 	</resultMap>
 
-  			<!-- getTotal -->
+<!--   			getTotal
 	<select id="getTotalCount" resultType="Long" parameterType="Pager">
-	SELECT COUNT(BOARDNUM) FROM QNA
+	SELECT COUNT(BOARDNUM) FROM ACCOUNT
 	 <include refid="search2"></include>
-	</select>
+	</select> -->
 
 </mapper>

@@ -21,6 +21,23 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	
+	
+	@GetMapping("idCheck")
+	public String getIdCheck(MemberDTO memberDTO, Model model) throws Exception{
+		memberDTO = memberService.getDetail(memberDTO);
+		// 1. 응답 데이터를 json으로 변환
+		// 2. html로 만들어서 보냄
+		int result = 0;
+		if(memberDTO == null) {
+			result = 1;
+		}
+		model.addAttribute("result", result);
+		return "commons/ajaxResult";
+	} 
+	
+	
+	
 	//mypage
 	@GetMapping("mypage")
 	public void getMypage(HttpSession session, Model model)throws Exception{

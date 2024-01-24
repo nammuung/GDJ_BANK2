@@ -54,11 +54,13 @@
                     <form action="./login" method="post">
                         <div class="mb-3">
                             <label for="userName" class="form-label">USER_ID</label>
-                            <input type="text" class="form-control" id="userName" name="userName">
+                            <!-- <input type="text" class="form-control" id="userName" name="userName"> -->
+                            <input type="text" class="form-control" id="userName" name="userName" value="1">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">USER_PASSWORD</label>
-                            <input type="password" class="form-control" id="password" name="password">
+                            <!-- <input type="password" class="form-control" id="password" name="password"> -->
+                            <input type="password" class="form-control" id="password" name="password" value="23">
                         </div>
                         <button type="submit" class="btn btn-primary">login</button>
                       </form>

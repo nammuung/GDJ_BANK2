@@ -32,6 +32,27 @@ const joinbtn = document.getElementById("joinbtn");
 //========================================================================
 //user_Name  java에서 처리
 
+
+//========================================================================
+// name
+// id.addEventListener('blur', ()=>{
+//     let id1 = id.value;
+//     console.log(id1);
+//     if(id1.length=0){
+//         alert('아이디가 입력되지 않았습니다.');
+//     }
+// });
+
+$("#userName").blur(function(){
+    fetch("./idCheck?userName="+$("#userName").val(),{
+        method:"GET"
+        
+    })
+    .then(response=>response.text())
+    .then(response=>console.log(response));
+})
+
+
 //========================================================================
 
 // password 
@@ -63,14 +84,7 @@ joinbtn.addEventListener('click', ()=>{
     }
 });
 //================================================================
-// name
-id.addEventListener('blur', ()=>{
-    let id1 = id.value;
-    console.log(id1);
-    if(id1.length<0){
-        alert('아이디가 입력되지 않았습니다.');
-    }
-});
+
 
 //================================================================
 //phone

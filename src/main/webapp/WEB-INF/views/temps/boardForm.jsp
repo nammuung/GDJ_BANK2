@@ -20,15 +20,14 @@
 					 -->
 	</div>
 	<div class="mb-3">
-		<label for="boardContents" class="form-label">Contents</label>
+		<label for="boardContents" class="form-label" id="boardContents">Contents</label>
 		<textarea class="form-control" id="boardContents" rows="3"
 			name="boardContents">${boardDTO.boardContents}</textarea>
 	</div>
 
-	<div class="mb-3">
-		<input class="form-control" type="file" name="attachs"> <input
-			class="form-control" type="file" name="attachs"> <input
-			class="form-control" type="file" name="attachs">
+	<div class="mb-3" id="filelist" data-file-count="0" data-file-max="5">
+		<button type="button" id="fileAdd">FileAdd</button>
+		
 	</div>
 
 	<div class="mb-3">

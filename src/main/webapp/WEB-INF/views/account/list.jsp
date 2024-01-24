@@ -57,7 +57,7 @@
 		<tbody>
 			<c:forEach items="${requestScope.list}" var="dto">
 			<tr>
-				<td>${pageScope.dto.productNum}</td>
+				<td>${pageScope.dto.accountNum}</td>
 				<td><a href="./detail?productNum=${dto.productNum}">${pageScope.dto.productName}</a></td>
 				<td>${pageScope.dto.productRate}</td>
 				<td>${pageScope.dto.productJumsu}</td>

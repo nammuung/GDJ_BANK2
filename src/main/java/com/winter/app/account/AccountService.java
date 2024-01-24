@@ -1,6 +1,8 @@
 package com.winter.app.account;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,8 +24,13 @@ public class AccountService {
 		return accountDAO.add(accountDTO);
 	}
 
-	public List<AccountDTO> list(Pager pager) throws Exception {
+	public List<AccountDTO> list(Pager pager, MemberDTO memberDTO) throws Exception {
 		pager.makeRow();
+		Map<String, Object> map= new HashMap<String, Object>();
+		
+		map.put(pager, pager);
+		map.put(memberDTO, memberDTO);
+		
 		Long totalCount = accountDAO.getTotalCount(pager);
 		pager.makeNum(totalCount);
 		List<AccountDTO> ar = this.accountDAO.list(pager);
