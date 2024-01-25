@@ -22,8 +22,8 @@ public class AccountDAO {
 		return sqlSession.insert(NAMESPACE+"add", accountDTO);
 	}
 
-	public List<AccountDTO> list(Pager pager, Map<String, Object>map) throws Exception{
-		return sqlSession.selectList(NAMESPACE+"list", pager);
+	public List<ProductDTO> getList(Pager pager) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"getList", pager);
 	}
 
 	public Long getTotalCount(Pager pager) throws Exception{

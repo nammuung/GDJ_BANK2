@@ -91,16 +91,7 @@
 				
 			</ul>
 		</nav>
-	</div>
-                
-                
-                
-                
-                
-                
-                
-                
-                
+	</div>                      
                 <!--  -->
                 <div>
                 	<a href="add" class="btn btn-danger">상품등록</a>

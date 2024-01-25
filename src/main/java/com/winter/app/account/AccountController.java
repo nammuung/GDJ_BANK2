@@ -51,13 +51,13 @@ public class AccountController {
 	}
 	
 	@GetMapping("list")
-	public String list(Model model, Pager pager) throws Exception{
-		
-		List<AccountDTO> ar = accountService.list(pager);
+	public void getList(ProductDTO productDTO, Pager pager, HttpSession session, Model model) throws Exception {
+		MemberDTO ac = (MemberDTO)session.getAttribute("member");
+		pager.setSearch(ac.getUserName());
+		List<ProductDTO> ar = accountService.getList(pager);
 		
 		model.addAttribute("list", ar);
-		
-		return "account/list";
+		model.addAttribute("pager", pager);
 		
 	}
 }

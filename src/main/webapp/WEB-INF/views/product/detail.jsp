@@ -45,7 +45,6 @@
 											<div>
                                                 <c:forEach items="${productDTO.productFileDTOs}" var="f">
                                                     <a href="/resources/upload/product/${f.fileName}">${f.oriName}</a>
-                                                    
                                                 </c:forEach>
 											
 											</div>
@@ -55,17 +54,17 @@
 								</div>
 							</div>
 							<div>
-							<c:if test="${not empty member}">							
-							<a id="add" class="btn btn-primary" href="/account/add?productNum=${productDTO.productNum}">상품가입</a>
-								<a id="update" class="btn btn-info" href="#">Update</a> <a
-									id="delete" class="btn btn-primary" href="#">Delete</a>
-								<form id="frm" action="./update" method="get">
-									<input type="hidden" name="productNum"
-										value="${productDTO.productNum}">
-								</form>
-							</div>
-							</div>
-							</c:if>
+			<button class="btn btn-light" id="up"
+							data-product-num="${productDTO.productNum}">수정</button>
+						<button class="btn btn-light" id="del">삭제</button>
+						<c:if test="${member ne null}">
+							<button class="btn btn-light" id="create">상품가입</button>
+							<button class="btn btn-light" id="wishList">관심상품</button>
+						</c:if>
+						<form id="frm" action="./update" method="get">
+							<input type="hidden" name="productNum"
+								value="${productDTO.productNum}">
+						</form>
 						</div>
 					</div>
 				</div>
@@ -74,7 +73,7 @@
 	</main>
 	<!-- Footer-->
 	<!-- 사용전 경로를 꼭 수정 하세요 -->
-	<script src="/resources/js/boardDetail.js"></script>
+		<script src="../resources/js/productDetail.js"></script>
 	<c:import url="../temps/footer.jsp"></c:import>
 
 

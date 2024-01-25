@@ -44,12 +44,30 @@ const joinbtn = document.getElementById("joinbtn");
 // });
 
 $("#userName").blur(function(){
-    fetch("./idCheck?userName="+$("#userName").val(),{
-        method:"GET"
+    // $.get("idCheck?userName="+$("#userName").val(), function(response){
+    //  console.log(response);
+    // })
+
+    // fetch("./idCheck?userName="+$("#userName").val(),{
+    //     method:"GET"
         
-    })
-    .then(response=>response.text())
-    .then(response=>console.log(response));
+    // })
+    // .then(response=>response.text())
+    // .then(response=>console.log(response));
+    //let userName=$("#userName").val();
+    $.ajax({
+        url:"./idCheck",
+        method:"GET",
+        data:{
+            userName:$("#userName").val()
+        },
+        success:function(r){
+            console.log(r)
+        },
+        error:function(){
+            alert('error')
+        }
+    });
 })
 
 
