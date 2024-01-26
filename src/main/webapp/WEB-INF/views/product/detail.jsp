@@ -40,40 +40,71 @@
 											<div>${productDTO.productContents}</div>
 											<div>${productDTO.productRate}</div>
 											<div>${productDTO.productJumsu}</div>
-											
-											<div><h2>FILE</h2></div>
+
 											<div>
-                                                <c:forEach items="${productDTO.productFileDTOs}" var="f">
-                                                    <a href="/resources/upload/product/${f.fileName}">${f.oriName}</a>
-                                                </c:forEach>
-											
+												<h2>FILE</h2>
 											</div>
-											
+											<div>
+												<c:forEach items="${productDTO.productFileDTOs}" var="f">
+													<a href="/resources/upload/product/${f.fileName}">${f.oriName}</a>
+												</c:forEach>
+
+											</div>
+
 										</div>
 									</div>
 								</div>
 							</div>
 							<div>
-			<button class="btn btn-light" id="up"
-							data-product-num="${productDTO.productNum}">수정</button>
-						<button class="btn btn-light" id="del">삭제</button>
-						<c:if test="${member ne null}">
-							<button class="btn btn-light" id="create">상품가입</button>
-							<button class="btn btn-light" id="wishList">관심상품</button>
-						</c:if>
-						<form id="frm" action="./update" method="get">
-							<input type="hidden" name="productNum"
-								value="${productDTO.productNum}">
-						</form>
+								<button class="btn btn-light" id="up"
+									data-product-num="${productDTO.productNum}">수정</button>
+								<button class="btn btn-light" id="del">삭제</button>
+								<c:if test="${member ne null}">
+									<button class="btn btn-light" id="create">상품가입</button>
+									<button class="btn btn-light" id="wishList">관심상품</button>
+								</c:if>
+								<form id="frm" action="./update" method="get">
+									<input type="hidden" name="productNum"
+										value="${productDTO.productNum}">
+								</form>
+							</div>
 						</div>
 					</div>
+
+				<div class="my-3" id="replyList">
+				
+				
 				</div>
+
+
+
+
+					<div class="my-3">
+						<form id="replyform">
+						<input type="hidden" name="productNum" value="${productDTO.productNum}">
+							<div class="mb-3">
+								<textarea class="form-control" id="replyContents rows="3" name="replyContent"></textarea>
+									<div class="mb-3">
+										<select class="form-select" name="replyJumsu" aria-label="Default select example">
+  										<option value="5">5점</option>
+  										<option value="4">4점</option>
+  										<option value="3">3점</option>
+  										<option value="2">2점</option>
+  										<option value="1">1점</option>
+										</select>
+									</div>
+										<div>
+											<button type="button" class="btn btn-primary" id="replyAdd">댓글달기</button>
+										</div>
+							</div>
+						</form>
+					</div>
 		</section>
 
 	</main>
 	<!-- Footer-->
 	<!-- 사용전 경로를 꼭 수정 하세요 -->
-		<script src="../resources/js/productDetail.js"></script>
+	<script src="../resources/js/productDetail.js"></script>
 	<c:import url="../temps/footer.jsp"></c:import>
 
 

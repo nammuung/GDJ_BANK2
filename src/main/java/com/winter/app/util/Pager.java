@@ -5,7 +5,7 @@ public class Pager {
 	private Long startRow;
 	private Long lastRow;
 	private Long perPage = 10L;// 몇개씩 조회
-	private Long page;
+	private Long page; // 현재 페이지 번호
 
 	private Long totalPage; // 총합 페이지 갯수
 	private Long startNum; // 시작 번호

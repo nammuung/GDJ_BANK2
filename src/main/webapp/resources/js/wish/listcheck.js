@@ -1,11 +1,85 @@
-console.log("agreement");
 
-//js
- const checkAll = document.getElementById("checkAll");
- const checks = document.getElementsByClassName("checks");
- const del = document.getElementById("del");
+$("#add").click(function(){
+    console.log("d");
+    $("#deleteform").attr("action", "../account/add");
+    $("#deleteform").submit();
+});
 
-// //jquery
+$("#del").click(function(){
+
+    let nums = [];
+    let checkElement=[];
+    $(".checks").each(function(idx, item){
+        if($(item).prop("checked")){
+           nums.push($(item).val());
+           checkElement.push(item);
+        }
+    });
+
+    deleteWithJquery(nums);
+    //deleteWithFetch(nums);
+    console.log(nums);
+
+});
+
+function deleteWithFetch(nums){
+    // let param ="";
+    // nums.forEach(element => {
+    //     param=param+"productNum="+element+"&";
+    // });
+
+    let deleteform = document.getElementById("deleteform");
+
+    let form = new FormData(deleteform);
+
+    fetch("./delete",{
+        method:"POST",
+        // headers:{
+        //     "Content-type":"application/x-www-form-urlencoded"
+        // },
+        //body:"productNum="+nums
+        body:form
+    } )
+    .then(response=> response.text())
+    .then(response=>{
+        console.log(response);
+        $("#ajaxList").html(response);
+    })
+}
+
+function deleteWithJquery(nums){
+
+    let form = new FormData($("#deleteform")[0]);
+
+    $.ajax({
+        method:"post",
+        url:"./delete",
+
+        cache:false,
+        contentType:false,
+        processData:false,
+        data:form,
+        success:function(result){
+            //if(result.trim()>0){
+                //1. location.reload();
+                
+                //2. Element들 삭제
+                //    checkElement.forEach((element)=>{
+                    //         $(element).parent().parent().parent().remove();
+                    //    })
+                    
+                    
+                    //}
+            //3. DB에서 조회를 다시 해서 html()
+            $("#ajaxList").html(result.trim());
+        },
+        error:function(){
+            alert('알수없는 에러 발생 관리자에 문의');
+        }
+    })
+
+}
+
 $('#checkAll').click(()=>{
     let v = $("#checkAll").prop("checked");
     
@@ -25,53 +99,3 @@ $('.checks').click(function(){
 
     $("#checkAll").prop("checked", flag);
 })
-
-
-
-
-$('#del').click(()=>{
-    let nums = [];
-    let checkElement=[];
-    $('.checks').each(function(idx, item) { 
-      if($(item).prop("checked")){
-      nums.push($(item).val());
-      checkElement.push(item);
-      }
-    });
-
-    if( nums.length < 1 ){
-      alert("리스트를 선택해주시기 바랍니다.");
-      return;
-    }
-
-    console.log(nums);
-    $.ajax({
-        method:"post",
-        url:"./delete",
-        traditional:true,
-        data:{
-            productNum:nums,
-        },
-        success :function(result){
-            if(result.trim()>0){
-                //1. 현재 페이지를 리로드 하는 방법
-                //location.reload();
-
-                //2. Element들 삭제
-                console.log(checkElement)
-                
-                //parents(checkElement).remove();
-                
-                //console.log($(".checks").parents(checkElement))
-                $(".checks").parent().parent().parent(checkElement).remove()
-
-                // 
-            }
-        },
-        error   :function(result){
-            alert('에러 발생');
-        }
-    })
-
-    
-});

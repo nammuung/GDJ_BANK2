@@ -5,6 +5,43 @@ const frm = document.getElementById("frm");
 const up = document.getElementById("up");
 const dele = document.getElementById("del");
 const create = document.getElementById("create");
+const replyList = document.getElementById("replyList");
+//replyAdd (fetch 사용)
+const replyform = document.getElementById("replyform");
+let form = new FormData(replyform);
+const replyAdd = document.getElementById("replyAdd");
+
+
+
+// fetch("../reply/list?="+up.getAttribute("data-product-num"),{
+//     method:"GET"
+// }).then(r=> r.text())
+// .then(r=>document.getElementById(""))
+
+//replyAdd (Fetch 사용, JS)
+
+
+fetch("../reply/list?productNum="+up.getAttribute("data-product-num"), {
+	method:"GET"
+}).then(r=> r.text())
+  .then(r=>document.getElementById("replyList").innerHTML=r)
+
+  replyAdd.addEventListener("click", ()=>{
+	const replyForm = document.getElementById("replyForm");
+	let form = new FormData(replyForm);
+
+	fetch("../reply/add", {
+		method:"POST",
+		body:form
+	})
+	.then(r=>r.text())
+	.then(r=>{
+		document.getElementById("replyList").innerHTML=r
+		replyForm.reset();
+	})
+})
+
+
 
     up.addEventListener("click", function(){
         frm.submit();
@@ -27,13 +64,7 @@ const create = document.getElementById("create");
     });
 
     $("#wishList").click(function(){
-       // fetch("../wishlist/add?productNum="+$("#up").attr("data-product-num"),{
-       // 	method:"GET"
-       // })
-       // .then(response=>response.text())
-       // .then(response=>{
-       // 	console.log(response);
-       // })
+
        let productNum = $("#up").attr("data-product-num");
        $.ajax({
            url:"../wishlist/add",

@@ -54,9 +54,13 @@ public class WishlistController {
 //		}
 		int result = wishlistService.setDelete(productNum, memberDTO);
 		
-		model.addAttribute("result",result);
+		//다시 조회
+		List<ProductDTO> ar = wishlistService.getList(memberDTO);
 		
-		return "commons/ajaxResult";
+		//model.addAttribute("result",result);
+		model.addAttribute("list", ar);
+		return "wishlist/ajxList";
+		//return "commons/ajaxResult";
 	}
 			
 	

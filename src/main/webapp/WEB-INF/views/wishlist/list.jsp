@@ -63,18 +63,25 @@
 						<th>평점</th>
 					</tr>
 				</thead>
-				<tbody>
-					<c:forEach items="${requestScope.list}" var="dto">
-						<tr>
-						<td>								<div class="form-check">
-									<input class="form-check-input checks" type="checkbox"  id="checks" value="${pageScope.dto.productNum}" >
-								</div></td>
-							<td>${pageScope.dto.productNum}</td>
-							<td><a href="./detail?productNum=${dto.productNum}">${pageScope.dto.productName}</a></td>
-							<td>${pageScope.dto.productRate}</td>
-							<td>${pageScope.dto.productJumsu}</td>
-						</tr>
-					</c:forEach>
+				<tbody id="ajaxList">
+					<form id="deleteform">
+						<!-- ajax로 from자체를 넘기는 역할 -->
+						<c:forEach items="${requestScope.list}" var="dto">
+							<tr>
+								<td>
+									<div class="form-check">
+										<input class="form-check-input checks" type="checkbox"
+											name="productNum" id="checks"
+											value="${pageScope.dto.productNum}">
+									</div>
+								</td>
+								<td>${pageScope.dto.productNum}</td>
+								<td><a href="./detail?productNum=${dto.productNum}">${pageScope.dto.productName}</a></td>
+								<td>${pageScope.dto.productRate}</td>
+								<td>${pageScope.dto.productJumsu}</td>
+							</tr>
+						</c:forEach>
+					</form>
 				</tbody>
 
 			</table>
@@ -111,9 +118,10 @@
 				<a href="add" class="btn btn-danger">상품등록</a>
 			</div>
 		</div>
-	<div class="container">
-	<button id="del"> 삭제 </button>
-	</div>
+		<div class="container">
+			<button id="del">삭제</button>
+			<button id="add">가입</button>
+		</div>
 
 
 	</main>

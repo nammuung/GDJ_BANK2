@@ -22,8 +22,7 @@
 			alias="ProductDTO" />
 		<typeAlias type="com.winter.app.product.ProductFileDTO" alias="ProductFileDTO" />
 		<typeAlias type="com.winter.app.account.AccountDTO" alias="AccountDTO" />
-		
-		
+		<typeAlias type="com.winter.app.product.ReplyDTO" alias="ReplyDTO" />
 		</typeAliases>
 		
 
