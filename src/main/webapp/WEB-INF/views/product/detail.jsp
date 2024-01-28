@@ -80,7 +80,7 @@
 
 
 					<div class="my-3">
-						<form id="replyform">
+						<form id="replyForm">
 						<input type="hidden" name="productNum" value="${productDTO.productNum}">
 							<div class="mb-3">
 								<textarea class="form-control" id="replyContents rows="3" name="replyContent"></textarea>

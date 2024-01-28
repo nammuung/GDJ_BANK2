@@ -7,8 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.winter.app.board.member.MemberDTO;
-
 @Repository
 public class ReplyDAO {
 	@Autowired
@@ -19,14 +17,13 @@ public class ReplyDAO {
 	public int setReply(ReplyDTO replyDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setReply", replyDTO);
 	}
-
-	public List<ReplyDTO> getList(Map<String, Object> map)throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getList", map);
-	}
 	
 	public Long getTotalCount(ReplyDTO replyDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getTotalCount", replyDTO);
 	}
 	
-	
+	public List<ReplyDTO> getList(Map<String, Object> map)throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getList", map);
+	}
+
 }

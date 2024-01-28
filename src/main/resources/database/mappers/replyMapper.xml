@@ -11,21 +11,21 @@
   	</insert>
   
 
-  	<select id="getList" resultType="ReplyDTO" parameterType="map" >
-			select * from
-		(select ROWNUM RN, R.*
-		(SELECT *
-		FROM reply R
-		where PRODUCTNUM=#{replyDTO.procutNum} order by replyNum DESC) R) 
-		where RN BETWEEN #{pager.startRow} AND #{pager.lastRow}
-	</select>
+ 	<select id="getList" parameterType="Map" resultType="ReplyDTO">
+  		SELECT * FROM
+  		(SELECT ROWNUM RN, R.* FROM
+  		(SELECT * FROM REPLY
+  		WHERE productNum=#{replyDTO.productNum}
+  		ORDER BY REPLYNUM DESC) R)
+  		WHERE RN BETWEEN #{pager.startRow} AND #{pager.lastRow}
+  	</select>
 
 
 
 		<!-- getTotal -->
 	<select id="getTotalCount" resultType="Long" parameterType="ReplyDTO">
 	SELECT COUNT(REPLYNUM) FROM reply 
-	where PRODUCTNUM=#{prodcutNum} 
+	where productNum=#{productNum} 
 	</select>
 
 

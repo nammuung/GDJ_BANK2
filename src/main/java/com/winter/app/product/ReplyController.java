@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.winter.app.board.member.MemberDTO;
 import com.winter.app.util.Pager;
 
-
-
 @Controller
 @RequestMapping("/reply/*")
 public class ReplyController {
@@ -30,17 +28,17 @@ public class ReplyController {
 		
 		int result = replyService.setReply(replyDTO);
 		
-		List<ReplyDTO> ar = replyService.getList(pager ,replyDTO);
+		List<ReplyDTO> ar = replyService.getList(pager, replyDTO);
 		model.addAttribute("list", ar);
 		return "product/replyListResult";
 		
 	}
 	
 	@GetMapping("list")
-	public String getList(ReplyDTO replyDTO, Model model, Pager pager)throws Exception {
+	public String getList(Pager pager, ReplyDTO replyDTO, Model model)throws Exception {
 		List<ReplyDTO> ar = replyService.getList(pager, replyDTO);
 		model.addAttribute("list", ar);
-		model.addAttribute("pager",pager);
+		model.addAttribute("pager", pager);
 		return "product/replyListResult";
 	}
 	

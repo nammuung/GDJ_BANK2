@@ -10,6 +10,8 @@ public class ReplyDTO {
 	private String replyContent;
 	private Date replyDate;
 	private Integer replyJumsu;
+	
+	
 	public Long getReplyNum() {
 		return replyNum;
 	}
@@ -46,7 +48,6 @@ public class ReplyDTO {
 	public void setReplyJumsu(Integer replyJumsu) {
 		this.replyJumsu = replyJumsu;
 	}
-	
 	
 	
 
