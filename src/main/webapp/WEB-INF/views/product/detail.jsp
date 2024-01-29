@@ -71,9 +71,35 @@
 						</div>
 					</div>
 
-				<div class="my-3" id="replyList">
-				
-				
+				<div class="my-3" >
+				<table>
+					<thead>
+						<tr>
+							<th>Content</th>
+							<th>Writer</th>
+							<th>Date</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="replyList">
+						<c:forEach items="${replyList}" var="r">
+						<tr>
+							<td>${r.replyContent}</td>
+							<td>${r.userName}</td>
+							<td>${r.replyDate}</td>
+							<td><c:if test="${r.userName eq member.userName}"> <button>삭제</button></c:if></td>
+							<td><c:if test="${r.userName eq member.userName}"> <button>수정</button></c:if></td>
+						</tr>
+						</c:forEach>
+
+
+					</tbody>
+				</table>
+				<div>
+					<button id="more" data-replyList-page="${pager.page}" data-replyList-totalPage="${pager.totalPage}">더보기</button>
+				</div>
+
 				</div>
 
 

@@ -14,6 +14,14 @@ public class ProductDTO {
 	private Double productJumsu;
 	private Integer productCount;
 	private List<AccountDTO> accountDTOs;
+	private List<ReplyDTO> replyDTOs;
+	
+	public List<ReplyDTO> getReplyDTOs() {
+		return replyDTOs;
+	}
+	public void setReplyDTOs(List<ReplyDTO> replyDTOs) {
+		this.replyDTOs = replyDTOs;
+	}
 	public List<AccountDTO> getAccountDTOs() {
 		return accountDTOs;
 	}
