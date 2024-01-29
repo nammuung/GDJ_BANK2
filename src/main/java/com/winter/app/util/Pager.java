@@ -16,7 +16,7 @@ public class Pager {
 	// 다음 블럭이 없으면 true;
 	private boolean last;
 
-	
+	//검색
 	private String search;
 	private String searchFind;
 	
@@ -45,19 +45,20 @@ public class Pager {
 
 	// startRow, lastRow계산하는 메서드
 	public void makeRow() {
+		//현재 페이지번호 * 몇개씩 조회 할건지
 		this.lastRow = this.getPage() * this.getPerPage();
-		// this.startRow=this.perPage*this.page-9;
-		// this.startRow=this.perPage*page-(perPage-1);
-		// this.startRow=lastRow-perPage+1;
+		// (현재 페이지번호-1) * 몇개씩 조회할건지+1 
 		this.startRow = (this.getPage() - 1) * this.getPerPage() + 1;
 	}
 
 	public void makeNum(Long totalCount) {
 		if(totalCount<1) {
 			totalCount=1L;
+			// 0일경우 1로 값을줘서 첫번째 페이지가 보여지게끔 설정
 		}
 		
 		Long totalPage = 0L;
+		// 0L / 10 = 0L
 		totalPage = totalCount / this.getPerPage();
 
 		if (totalCount % this.getPerPage() != 0) {
