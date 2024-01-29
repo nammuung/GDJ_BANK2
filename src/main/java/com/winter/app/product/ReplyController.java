@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.taglibs.standard.lang.jstl.Literal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +24,18 @@ public class ReplyController {
 	@Autowired
 	private ReplyService replyService;
 	
+	@PostMapping("delete")
+	@ResponseBody
+	public Map<String, Object> setDelete(Pager pager, ReplyDTO replyDTO)throws Exception{
+		replyService.setDelete(replyDTO);
+	 	List<ReplyDTO> ar = replyService.getList(pager, replyDTO);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("datas", ar);
+		map.put("pager", pager);
+		
+		return map;
+	}
+	
 	@PostMapping("add")
 	@ResponseBody
 	public Map<String, Object> setReply(Pager pager,ReplyDTO replyDTO, HttpSession session, Model model)throws Exception{
@@ -34,34 +45,29 @@ public class ReplyController {
 		int result = replyService.setReply(replyDTO);
 		
 		List<ReplyDTO> ar = replyService.getList(pager, replyDTO);
-		//JSON으로 여러개 보내려고 MAP사용
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("datas", ar);
 		map.put("pager", pager);
+		
+		
 		return map;
 		
 	}
 	
-	//delete
-	@PostMapping("delete")
-	@ResponseBody
-	public Map<String, Object>setDelete(Pager pager, ReplyDTO replyDTO)throws Exception{
-		replyService.setDelete(replyDTO);
-		List<ReplyDTO> ar = replyService.getList(pager, replyDTO);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("datas", ar);
-		map.put("pager", pager);
-		return map;
-	}
-	
 	@GetMapping("list")
-	@ResponseBody   // JSON으로 보낸다는뜻
+	@ResponseBody
 	public Map<String, Object> getList(Pager pager, ReplyDTO replyDTO, Model model)throws Exception {
 		List<ReplyDTO> ar = replyService.getList(pager, replyDTO);
 //		model.addAttribute("list", ar);
 //		model.addAttribute("pager", pager);
 		
-		//list자체를 리턴함
+		// [
+		//  {"userName":"???", "contents:???", "date":???},
+		//  {"userName":"???", "contents:???", "date":???},
+		//  {"userName":"???", "contents:???", "date":???},
+		//]
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("datas", ar);
 		map.put("pager", pager);

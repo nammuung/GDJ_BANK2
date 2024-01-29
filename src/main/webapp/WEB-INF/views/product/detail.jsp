@@ -102,7 +102,7 @@
 						<form id="replyForm">
 						<input type="hidden" name="productNum" value="${productDTO.productNum}">
 							<div class="mb-3">
-								<textarea class="form-control" id="replyContents rows="3" name="replyContent"></textarea>
+								<textarea class="form-control" id="replyContents rows="3" name="replyContents"></textarea>
 									<div class="mb-3">
 										<select class="form-select" name="replyJumsu" aria-label="Default select example">
   										<option value="5">5점</option>

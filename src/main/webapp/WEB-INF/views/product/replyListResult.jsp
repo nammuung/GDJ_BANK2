@@ -6,9 +6,7 @@
 <c:forEach items="${list}" var="r">
 	<tr>
 		<td>${r.userName}</td>
-		<td>${r.replyContent}</td>
+		<td>${r.replyContents}</td>
 		<td>${r.replyDate}</td>
 	</tr>
 </c:forEach>
-
-

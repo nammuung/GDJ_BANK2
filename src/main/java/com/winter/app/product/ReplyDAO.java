@@ -14,6 +14,10 @@ public class ReplyDAO {
 	
 	private final String NAMESPACE="com.winter.app.product.ReplyDAO.";
 	
+	public int setDelete(ReplyDTO replyDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setDelete", replyDTO);
+	}
+	
 	public int setReply(ReplyDTO replyDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setReply", replyDTO);
 	}
@@ -24,11 +28,6 @@ public class ReplyDAO {
 	
 	public List<ReplyDTO> getList(Map<String, Object> map)throws Exception{
 		return sqlSession.selectList(NAMESPACE+"getList", map);
-	}
-	
-	//delete
-	public int setDelete(ReplyDTO replyDTO)throws Exception{
-		return sqlSession.delete(NAMESPACE+"setDelete", replyDTO);
 	}
 
 }

@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.print.DocFlavor.READER;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +13,11 @@ import com.winter.app.util.Pager;
 public class ReplyService {
 	@Autowired
 	private ReplyDAO replyDAO;
+	
+	public int setDelete(ReplyDTO replyDTO)throws Exception{
+		return replyDAO.setDelete(replyDTO);
+	}
+	
 	
 	public int setReply(ReplyDTO replyDTO)throws Exception{
 		return replyDAO.setReply(replyDTO);
@@ -31,11 +34,6 @@ public class ReplyService {
 			
 		
 		return replyDAO.getList(map);
-	}
-	
-	
-	public int setDelete(ReplyDTO replyDTO)throws Exception{
-		return replyDAO.setDelete(replyDTO);
 	}
 
 }

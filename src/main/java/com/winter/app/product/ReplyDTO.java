@@ -7,7 +7,7 @@ public class ReplyDTO {
 	private Long replyNum;
 	private Long productNum;
 	private String userName;
-	private String replyContent;
+	private String replyContents;
 	private Date replyDate;
 	private Integer replyJumsu;
 	
@@ -30,11 +30,11 @@ public class ReplyDTO {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getReplyContent() {
-		return replyContent;
+	public String getReplyContents() {
+		return replyContents;
 	}
-	public void setReplyContent(String replyContent) {
-		this.replyContent = replyContent;
+	public void setReplyContents(String replyContents) {
+		this.replyContents = replyContents;
 	}
 	public Date getReplyDate() {
 		return replyDate;
