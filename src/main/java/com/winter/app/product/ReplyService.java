@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.DocFlavor.READER;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,11 @@ public class ReplyService {
 			
 		
 		return replyDAO.getList(map);
+	}
+	
+	
+	public int setDelete(ReplyDTO replyDTO)throws Exception{
+		return replyDAO.setDelete(replyDTO);
 	}
 
 }

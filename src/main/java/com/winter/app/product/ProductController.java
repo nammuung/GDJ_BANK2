@@ -24,11 +24,6 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
-	//댓글 조회용
-	@Autowired
-	private ReplyService replyService;
-
-
 	//list
 	@GetMapping("list")
 	public String getList(Pager pager, Model model)throws Exception{
@@ -42,16 +37,6 @@ public class ProductController {
 	public String getDetail(ProductDTO productDTO, Model model)throws Exception{
 		productDTO = productService.getDetail(productDTO);
 		model.addAttribute("productDTO", productDTO);
-		
-		//처음 가지올때 댓글 목록도 조회
-		//1. 서비스에서 가지고 오는 방법
-		ReplyDTO replyDTO = new ReplyDTO();
-		Pager pager = new Pager();
-		replyDTO.setProductNum(productDTO.getProductNum());
-		List<ReplyDTO> replyList = replyService.getList(pager, replyDTO);
-		
-		model.addAttribute("pager", pager);
-		model.addAttribute("replyList",replyList);
 		
 		return "product/detail";
 	}

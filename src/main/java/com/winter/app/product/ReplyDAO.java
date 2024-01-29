@@ -25,5 +25,10 @@ public class ReplyDAO {
 	public List<ReplyDTO> getList(Map<String, Object> map)throws Exception{
 		return sqlSession.selectList(NAMESPACE+"getList", map);
 	}
+	
+	//delete
+	public int setDelete(ReplyDTO replyDTO)throws Exception{
+		return sqlSession.delete(NAMESPACE+"setDelete", replyDTO);
+	}
 
 }
