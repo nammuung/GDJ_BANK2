@@ -26,24 +26,26 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan
-		base-package="com.winter.app" />
+	
 
 	
 	<interceptors>
 		<interceptor>
 			<!-- beans위에 mapping가 있어야함 아니면 에러뜸 -->
 			<mapping path="/**/" />
-			<!--  --><exclude-mapping path="/notice/*"/>
-			<beans:bean class="com.winter.app.interceptors.Testinterceptor" id="testinterceptor"></beans:bean>
+			<exclude-mapping path="/notice/*"/>
+			<beans:ref bean="testInterceptor"/>
 		</interceptor>	
 	<interceptor>
 			<mapping path="/qna/*" />
 			<mapping path="member/mypage"/>
 			<mapping path="member/update"/>
 			<mapping path="member/delete"/>
+			<mapping path="/notice/add"/>
+			<mapping path="/notice/update"/>
+			<mapping path="/notice/delete"/>
 			<exclude-mapping path="/qna/list"/>
-			<beans:bean class="com.winter.app.interceptors.AuthenticationinterCeptor" id="authenticationinterCeptor"></beans:bean>
+			<beans:ref bean="authenticationinterCeptor"/>
 	</interceptor>
 			
 			<interceptor>
@@ -51,13 +53,18 @@
 			<mapping path="/qna/delete"/>
 			<mapping path="/notice/update"/>
 			<mapping path="/notice/delete"/>
-			<beans:bean class="com.winter.app.interceptors.WriterCheckInterceptor" id="writerCheckInterceptor"></beans:bean>
+			<beans:ref bean="writerCheckInterceptor"/>
 			</interceptor>
 		
+				<interceptor>
+			<mapping path="/notice/add"/>
+			<mapping path="/notice/update"/>
+			<mapping path="/notice/delete"/>
+			<beans:ref bean="adminCheckInterceptor"/>
+		</interceptor>
 	</interceptors>
 	
-	
 
-
+<context:component-scan base-package="com.winter.app" />
 
 </beans:beans>

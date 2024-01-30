@@ -32,6 +32,7 @@ public class MemberService {
 		// null으로 오면 아이디를 입력하지 않은거임
 		if(m != null) {
 			if(m.getPassword().equals(memberDTO.getPassword())) {
+				memberDTO.setRoleDTOs(m.getRoleDTOs());
 				return memberDTO;
 			}else {
 				// 비밀번호가 null일떄 null리턴

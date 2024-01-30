@@ -26,4 +26,13 @@
   		ORDER BY REPLYNUM DESC) R)
   		WHERE RN BETWEEN #{pager.startRow} AND #{pager.lastRow}
   	</select>
+  	
+  	
+  	<!-- 댓글 수정용 -->
+  	<update id="setUpdate" parameterType="ReplyDTO">
+  	UPDATE REPLY SET REPLYCONTENTS=#{replyContents}
+  	where replyNum=#{replyNum}
+  	</update>
+  	
+  	
   </mapper>

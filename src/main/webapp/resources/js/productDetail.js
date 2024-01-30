@@ -8,12 +8,68 @@
  const more = document.getElementById("more")
  const replyList = document.getElementById("replyList");
  const replyAdd = document.getElementById("replyAdd");
-
-
+ const replyUpdateButton = document.getElementById("replyUpdateButton");
 
 getReplyList(1, up.getAttribute("data-product-num"));
+// then -> 응답 받는용도
+//modal 수정 버튼 (jsp에 뿌려져있기때문에 이벤트 위임이 필요가 없음)
+replyUpdateButton.addEventListener("click",()=>{
+	let replyUpdateForm = document.getElementById("replyUpdateForm");
+	let FormDatax = new FormData(replyUpdateForm);
+	fetch("../reply/update",{
+		method:"POST",
+		body:FormDatax
+	}).then(r=> r.json())
+	.then(r=> {
+		alert(r)
+		if(r>0){ // 0과 비교하는건 결과값이 0,1로 옴 
+			//replyContens와 num을 꺼내오는 작업
+			//td의 Id를 가져와서 내용을 수정
+			let  i ="replyContents"+document.getElementById("replyUpdateNum").value
+			i= document.getElementById(i);
+			i.innerHTML = document.getElementById("replyUpdateContents").value
+		}else{
+			alert('수정 실패')
+		}
+		// form데이터를 비워주는 역할
+		replyUpdateForm.reset();
+		//버튼을 눌렀을때 강제로 버튼을 클릭하게 하는 이벤트
+		document.getElementById("replyCloseButton").click();
+		
+	})
+})
 
-//삭제 버튼
+
+//수정 버튼(자바스크립트방식) [이벤트 위임]
+replyList.addEventListener("click",(e)=>{
+	if(e.target.classList.contains("update")){
+		// modal textarea
+		const replyUpdateContents = document.getElementById("replyUpdateContents");
+		
+		// td의 id생성
+		let i ='replyContents'+e.target.getAttribute("data-replyNum");
+
+		//해당 id의 td element가져옴
+		const r = document.getElementById(i)
+		alert(r.innerHTML);
+
+		//modal 창에 contenst값을 넣어줌 innertext상관없
+		replyUpdateContents.value=r.innerHTML;
+
+		// Contenst를 modal에 넘겨주는 역할
+		// input value값에 replyNum이 넣어져있는거 element에서 확인 가능
+		document.getElementById("replyUpdateNum").value=e.target.getAttribute("data-replyNum");
+
+		// td의 다음 형재의 내용 (contents-> replyWriter)
+		 document.getElementById("replyWriter").value=r.nextSibling.innerHTML;
+	}
+})
+
+
+
+
+
+//삭제 버튼 (제이쿼리)
 $("#replyList").on("click", ".del", function(){
 	let n = $(this).attr("data-replyNum")
 	console.log("replyNum : ", n)
@@ -66,6 +122,8 @@ function makeList(r){
 		let tr = document.createElement("tr");
 
 		let td = document.createElement("td");
+		// contestns만들때 id넣기
+		td.setAttribute("id", "replyContents"+r[i].replyNum)
 		td.innerHTML=r[i].replyContents;
 		tr.append(td);
 
@@ -92,6 +150,8 @@ function makeList(r){
 			b.innerHTML="수정";
 			b.setAttribute("class", "update")
 			b.setAttribute("data-replyNum", r[i].replyNum)
+			b.setAttribute("data-bs-toggle", "modal");
+			b.setAttribute("data-bs-target", "#replyUpdateModal");
 			td.append(b);
 			tr.append(td)
 		}

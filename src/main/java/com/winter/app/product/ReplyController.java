@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.winter.app.board.member.MemberDTO;
 import com.winter.app.util.Pager;
 
-@Controller
+// RestController을 사용하면 ResponseBody사용할 필요가없음
+@RestController
 @RequestMapping("/reply/*")
 public class ReplyController {
 
@@ -74,6 +76,16 @@ public class ReplyController {
 		
 		return map;
 	}
+	
+	// 업데이트
+	@PostMapping("update")
+	@ResponseBody
+	public int setUpdate(ReplyDTO replyDTO)throws Exception{
+		int result =  replyService.setUpdate(replyDTO);
+		return result;
+	}
+	
+	
 	
 	
 }

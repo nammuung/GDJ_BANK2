@@ -19,21 +19,29 @@
 			<id column="FILENUM" property="fileNum" />
 			<result column="FILENAME" property="fileName" />
 			<result column="ORINAME" property="oriName" />
+ 		<collection property="roleDTOs" javaType="List" ofType="RoleDTO">
+  			<id column="ROLENUM" property="roleNum"/>
+  			<result column="ROLENAME" property="roleName"/>
+  		</collection>
 		</association>
 
 	</resultMap>
 
 	<!-- 로그인 -->
-	<select id="getDetail" parameterType="MemberDTO"
-		resultMap="getDetailResult">
-		select *
-		from MEMBER M
-		left join
-		AVATAR A
-		using (USERNAME)
-		where
-		USERNAME=#{userName}
-	</select>
+  	<select id="getDetail" parameterType="MemberDTO" resultMap="getDetailResult">
+  		SELECT * 
+  		FROM MEMBER M
+  			 LEFT JOIN
+  			 AVATAR A
+  			 USING(USERNAME)
+  			 INNER JOIN
+  			 MEMBERROLE MR
+  			 USING(USERNAME)
+  			 INNER JOIN
+  			 ROLE R
+  			 USING (ROLENUM)
+  		WHERE USERNAME=#{userName}
+  	</select>
 
 
 	<!-- update -->
@@ -60,7 +68,10 @@
   		
   	</update>
 
-
+ 	<insert id="setMemberRole" parameterType="MemberDTO">
+  		INSERT INTO MEMBER VALUES
+  		(#{userName}, (SELECT ROLENUM FROM ROLE WHERE ROLENAME ='ROLE_MEMBER'))
+  	</insert>
 
 	<!-- 회원가입 -->
 	<insert id="setJoin" parameterType="MemberDTO">

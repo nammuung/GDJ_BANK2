@@ -29,5 +29,9 @@ public class ReplyDAO {
 	public List<ReplyDTO> getList(Map<String, Object> map)throws Exception{
 		return sqlSession.selectList(NAMESPACE+"getList", map);
 	}
+	
+	public int setUpdate(ReplyDTO replyDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"setUpdate", replyDTO);
+	}
 
 }
